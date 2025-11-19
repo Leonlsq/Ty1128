@@ -11,7 +11,7 @@
     </div>
 
     <div class="bottom-text-overlay">
-      <p class="new-chinese-text">相遇已是上签，再相遇便是一辈子。</p>
+      <p class="new-chinese-text">相遇已是上上签，再相遇便是一辈子。</p>
     </div>
   </div>
 </template>
