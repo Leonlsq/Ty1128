@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 // 👇 请确保路径正确，如果报错找不到组件，请检查这里
-import FireworksPage from '/Users/leon/Code/Develop/report/double/src/compoents/FireworksPage.vue'
+import FireworksPage from './compoents/FireworksPage.vue'
 
 // --- 1. 数据配置区 ---
 const slides = [
@@ -12,13 +12,13 @@ const slides = [
   },
   {
     type: 'content', 
-    image: '/photos/0927.jpg', // 这是左边拍立得显示的图片（面包机/聊天记录）
+    image: '/photos/0927.jpg', // 这是左边拍立得显示的图片
     date: '2025.09.27',
     text: '重逢的开始，没有惊天动地的对白，只有一句‘你吃过这个吗’。就因为那个关于‘面包机’的如常对话，两个人原本平行的生活线，好像开始了倾斜。谁能想到，超市角落里那台普普通通的切面包机，竟然切开了我原本平淡生活的缺口，让你走了进来。何等幸运，让我遇见你',
     
     // 👇这一页的特殊配置：背景图 + 虚化
     backgroundType: 'image', 
-    backgroundImage: '/photos/1.jpg', // 这是背景大图（女朋友的照片）
+    backgroundImage: '/photos/1.jpg', // 这是背景大图
   },
   {
     type: 'content',
@@ -105,14 +105,12 @@ watch(currentIndex, () => {
 
 // 核心翻页交互逻辑
 const nextSlide = () => {
-  // 尝试播放音乐
   if (audioRef.value && audioRef.value.paused && !isMusicPlaying.value) {
     audioRef.value.play()
       .then(() => { isMusicPlaying.value = true })
       .catch((e) => console.log('等待交互播放', e))
   }
 
-  // 👇 内容页逻辑：如果话没说完，点击只加一句，不翻页
   if (currentSlide.value.type === 'content') {
     if (contentStep.value < currentSlideSentences.value.length) {
       contentStep.value++
@@ -120,7 +118,6 @@ const nextSlide = () => {
     }
   }
 
-  // 翻页或跳转烟花
   if (currentIndex.value === slides.length - 1) {
     showFireworksPage.value = true
   } else if (currentIndex.value < slides.length - 1) {
@@ -244,7 +241,6 @@ body, html {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  /* 默认背景：柔和渐变 */
   background: linear-gradient(135deg, #fefdfb 0%, #fcebeb 100%); 
 }
 
@@ -366,7 +362,6 @@ body, html {
   padding: 20px; 
 }
 
-/* 背景虚化层 */
 .slide-section.content .background-overlay {
   position: absolute;
   top: 0;
@@ -378,39 +373,42 @@ body, html {
   z-index: 1; 
 }
 
-/* 内容主容器：Flex 左右布局 */
+/* 内容主容器 - 调整了上下 padding */
 .content-main {
   display: flex; 
   flex-direction: row; 
   align-items: center; 
   justify-content: center;
-  gap: 50px; 
+  gap: 40px; 
   max-width: 1100px; 
   width: 90%; 
-  z-index: 2; /* 确保在虚化层之上 */
+  z-index: 2; 
   position: relative; 
-  background: rgba(255, 255, 255, 0.6); /* 整体容器轻微白底 */
+  background: rgba(255, 255, 255, 0.6); 
   border-radius: 20px;
-  padding: 40px; 
+  /* 关键修改：进一步缩减垂直 padding，实现长方形效果 */
+  padding: 15px 40px; 
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   backdrop-filter: blur(5px); 
-  /* 允许子元素溢出容器 */
-  overflow: visible; 
+  overflow: visible !important; 
 }
 
-/* 左侧拍立得 - 已修改尺寸和位置使其出框 */
+/* 左侧拍立得 (破框核心代码) */
 .polaroid {
   flex-shrink: 0; 
-  width: 420px; /* 原始宽度由300px加大到420px */
+  width: 450px;  
   background: white;
   padding: 15px 15px 60px 15px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2), 
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2), 
               0 0 0 2px rgba(0,0,0,0.02) inset; 
   
-  /* 核心修改：负边距让其左移出框，旋转角度加大 */
-  margin-left: -80px; 
-  transform: rotate(-3deg) scale(1.05);
-  z-index: 10; /* 保证浮在最上层 */
+  /* 负 margin 保持破框效果，使其垂直方向上与新的短框体匹配 */
+  margin-left: -140px; 
+  margin-top: -60px; 
+  margin-bottom: -60px; 
+
+  transform: rotate(-5deg); 
+  z-index: 10; 
   
   border-radius: 4px; 
   transition: transform 0.3s;
@@ -423,16 +421,17 @@ body, html {
   display: block;
 }
 .polaroid:hover {
-  transform: rotate(0deg) scale(1.1); 
-  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-  z-index: 11;
+  transform: rotate(0deg) scale(1.05); 
+  box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+  z-index: 20;
 }
 
 /* 右侧文字区 */
 .text-area {
   flex-grow: 1; 
   text-align: left; 
-  min-width: 0; /* 防止 flex 子项溢出 */
+  min-width: 0; 
+  padding-left: 10px;
 }
 .date-tag {
   background: var(--primary);
@@ -445,13 +444,13 @@ body, html {
   margin-bottom: 20px;
   box-shadow: 0 4px 10px rgba(228, 177, 171, 0.4);
 }
-/* 文字逐行上浮动画 */
 @keyframes soft-float-up {
   0% { opacity: 0; transform: translateY(15px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 .text-area p.sentence-item {
-  margin: 12px 0;
+  /* 关键修改：缩减文字段落的上下 margin */
+  margin: 8px 0; /* 原始是 12px 0 */
   color: var(--text-main);
   line-height: 1.8;
   white-space: pre-line;
@@ -460,27 +459,31 @@ body, html {
   animation: soft-float-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* --- 📱 移动端适配 --- */
+/* --- 📱 移动端适配 (手机上不破框，恢复正常布局) --- */
 @media (max-width: 768px) {
   .content-main {
-    flex-direction: column; /* 改为上下布局 */
+    flex-direction: column;
     gap: 30px; 
-    padding: 25px;
+    padding: 25px; 
     width: 95%;
     margin-top: 20px;
+    overflow: hidden !important; 
   }
   .polaroid {
-    width: 260px; /* 移动端恢复小尺寸 */
-    margin-left: 0; /* 移动端恢复边距 */
+    width: 280px; 
+    margin-left: 0; 
+    margin-top: 0;
+    margin-bottom: 0;
     padding-bottom: 40px;
-    transform: rotate(0deg);
+    transform: rotate(-2deg);
   }
   .text-area {
-    text-align: center; /* 文字居中 */
+    text-align: center; 
     width: 100%;
+    padding-left: 0;
   }
   .text-area p.sentence-item {
-    font-size: 1.1rem; /* 缩小字体 */
+    font-size: 1.1rem;
     margin: 8px 0;
   }
 }
@@ -533,7 +536,6 @@ body, html {
 }
 .gift-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(228, 177, 171, 0.4); }
 
-/* 进度条 */
 .progress-bar {
   position: absolute;
   bottom: 0;
@@ -545,7 +547,6 @@ body, html {
 }
 .progress-inner { height: 100%; background: var(--primary); transition: width 0.5s ease; }
 
-/* 动画类 */
 .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease, transform 0.5s ease; }
 .fade-enter-from { opacity: 0; transform: translateY(20px); }
 .fade-leave-to { opacity: 0; transform: translateY(-20px); }
