@@ -456,7 +456,7 @@ body, html {
   white-space: pre-line;
   font-family: 'ZCOOL KuaiLe', cursive, "Microsoft YaHei", sans-serif;
   font-size: 1.4rem;
-  animation: soft-float-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: soft-float-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* --- 📱 移动端适配 (手机上不破框，恢复正常布局) --- */
