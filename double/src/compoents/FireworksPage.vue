@@ -269,7 +269,14 @@ function drawCouple() {
 }
 
 // 辅助函数：绘制星星 (Q版细节常用的几何图形)
-function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+function drawStar(
+  ctx: CanvasRenderingContext2D,  // 显式指定类型
+  cx: number,                      // 显式指定类型
+  cy: number,                      // 显式指定类型
+  spikes: number,                  // 显式指定类型
+  outerRadius: number,             // 显式指定类型
+  innerRadius: number              // 显式指定类型
+): void {
   let rot = Math.PI / 2 * 3;
   let x = cx;
   let y = cy;
