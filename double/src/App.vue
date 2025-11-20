@@ -2,14 +2,17 @@
 import { ref, computed, watch, onMounted } from 'vue' 
 // 👇 请确保路径正确
 import FireworksPage from './compoents/FireworksPage.vue'
+// 👇 引入新的解锁组件
+import iOSUnlockPage from './compoents/iOSUnlockPage.vue'
 
 // --- 0. 状态管理 ---
 const isLoading = ref(true)
 const loadProgress = ref(0)
-const showDeviceSelector = ref(false) // 控制选择界面显示
-const deviceMode = ref('') // 'mobile', 'tablet', 'desktop'
+const showDeviceSelector = ref(false) 
+const deviceMode = ref('') 
+const isLocked = ref(true) // ⭐ 新增：控制是否显示解锁界面
 
-// --- 1. 数据配置区 ---
+// --- 1. 数据配置区 (保持不变) ---
 const slides = [
   {
     type: 'cover', 
@@ -46,7 +49,6 @@ const slides = [
   {
     type: 'content',
     title: '🌧️ 慕尼黑的雨，与消失的三天',
-    // 拼贴照片组
     images: [
       '/photos/b1.jpeg', 
       '/photos/b2.JPG', 
@@ -125,21 +127,20 @@ const typewriterEffect = (text: string, delay = 100) => {
   }, delay)
 }
 
-watch(currentIndex, () => {
+// ⭐ 修改 watch 逻辑：只有在解锁后才开始打字机
+watch([currentIndex, isLocked], ([newIndex, newLockedState]) => {
+  if (newLockedState) return // 如果锁着，不执行
+
   contentStep.value = 1 
   if (currentSlide.value.type === 'cover' && currentSlide.value.printText) {
     typewriterEffect(currentSlide.value.printText)
   }
-}, { immediate: true })
+})
 
 const nextSlide = () => {
-  // 如果还在加载或选择设备，禁止操作
-  if (isLoading.value || showDeviceSelector.value) return
-
-  // 如果已经是烟花页，不再执行
-  if (showFireworksPage.value) {
-    return
-  }
+  // ⭐ 新增判断：如果没解锁，禁止操作
+  if (isLoading.value || showDeviceSelector.value || isLocked.value) return
+  if (showFireworksPage.value) return
 
   if (currentSlide.value.type === 'cover' && !isTypingFinished.value) {
     return 
@@ -181,12 +182,15 @@ const nextSlide = () => {
 const selectDevice = (mode: string) => {
   deviceMode.value = mode
   showDeviceSelector.value = false
-  
-  // 选完设备自动播放BGM
+  // ⭐ 修改：选完设备后，不再直接播放音乐，而是等待解锁界面
+}
+
+// ⭐ 新增：处理解锁成功事件
+const handleUnlock = () => {
+  isLocked.value = false // 解锁成功，进入 Cover 页
+  // 解锁后再播放音乐
   if (audioRef.value) {
-    audioRef.value.play()
-      .then(() => { isMusicPlaying.value = true })
-      .catch(() => { console.log('等待交互') })
+    audioRef.value.play().then(() => { isMusicPlaying.value = true }).catch(() => { })
   }
 }
 
@@ -200,6 +204,9 @@ const preloadImages = async () => {
       imageUrls.push(...slide.images)
     }
   })
+  // ⭐ 预加载解锁界面的背景图 (请确保这里和 iOSUnlockPage.vue 里的路径一致)
+  imageUrls.push('/photos/cover.jpg')
+
   const uniqueUrls = [...new Set(imageUrls)]
   let loadedCount = 0
 
@@ -213,7 +220,6 @@ const preloadImages = async () => {
         resolve(true)
       }
       img.onerror = () => {
-        console.error(`Failed to load: ${url}`)
         loadedCount++
         loadProgress.value = Math.floor((loadedCount / uniqueUrls.length) * 100)
         resolve(false)
@@ -222,10 +228,9 @@ const preloadImages = async () => {
   }
 
   await Promise.all(uniqueUrls.map(url => loadSingleImage(url)))
-  
   setTimeout(() => {
     isLoading.value = false
-    showDeviceSelector.value = true // 加载完显示设备选择
+    showDeviceSelector.value = true 
   }, 500)
 }
 
@@ -250,19 +255,26 @@ onMounted(() => {
       <div v-if="!isLoading && showDeviceSelector" class="device-selector-overlay">
         <div class="selector-box">
           <h2>亲爱的Ty你是在用哪个设备打开的网页吖😊</h2>
-          <p>选择你的设备✨</p>
+          <p>✨选择你的设备✨</p>
           <div class="btn-group">
-            <button @click.stop="selectDevice('mobile')">📱 手机 (iPhone/Android)</button>
-            <button @click.stop="selectDevice('tablet')">📟 平板 (iPad/Pad)</button>
-            <button @click.stop="selectDevice('desktop')">💻 电脑 (Mac/PC)</button>
+            <button @click.stop="selectDevice('mobile')">📱 手机 iPhone</button>
+            <button @click.stop="selectDevice('tablet')">📟 平板 iPad</button>
+            <button @click.stop="selectDevice('desktop')">💻 电脑 Mac/PC(体验最佳)</button>
           </div>
         </div>
       </div>
     </transition>
 
+    <transition name="fade">
+      <iOSUnlockPage 
+        v-if="!isLoading && !showDeviceSelector && isLocked" 
+        @unlocked="handleUnlock" 
+      />
+    </transition>
+
     <audio ref="audioRef" loop src="/music/伴奏.mp3"></audio>
 
-    <div v-if="!isLoading && !showDeviceSelector" class="music-btn" @click.stop="toggleMusic" :class="{ 'playing': isMusicPlaying }">
+    <div v-if="!isLoading && !showDeviceSelector && !isLocked" class="music-btn" @click.stop="toggleMusic" :class="{ 'playing': isMusicPlaying }">
       <div class="music-icon" :class="{ 'spinning': isMusicPlaying }">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
           <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
@@ -274,7 +286,7 @@ onMounted(() => {
     <div v-if="currentSlide.type !== 'content' || !currentSlide.backgroundType || currentSlide.backgroundType !== 'image'" class="bg-blob blob-2"></div>
 
     <transition name="fade" mode="out-in">
-      <template v-if="!showFireworksPage && !isLoading && !showDeviceSelector">
+      <template v-if="!showFireworksPage && !isLoading && !showDeviceSelector && !isLocked">
         
         <div 
           v-if="currentSlide.type === 'cover'" 
@@ -349,14 +361,14 @@ onMounted(() => {
       <FireworksPage v-else-if="showFireworksPage" />
     </transition>
 
-    <div v-if="!showFireworksPage && !isLoading && !showDeviceSelector" class="progress-bar">
+    <div v-if="!showFireworksPage && !isLoading && !showDeviceSelector && !isLocked" class="progress-bar">
       <div class="progress-inner" :style="{ width: ((currentIndex + 1) / slides.length) * 100 + '%' }"></div>
     </div>
   </div>
 </template>
 
 <style>
-/* --- 3. 样式区 --- */
+/* --- 3. 样式区 (保持不变) --- */
 :root {
   --bg-color: #fdfcf8;
   --primary: #e4b1ab; 
