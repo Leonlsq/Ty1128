@@ -153,28 +153,35 @@ const nextSlide = () => {
   }
 
   // ⭐ 修改点：自动滚动逻辑
+ // ... 前面的代码保持不变 ...
+
+  // 3. 内容页逐句显示逻辑
   if (currentSlide.value.type === 'content') {
     if (contentStep.value < currentSlideSentences.value.length) {
       contentStep.value++
       
-      // ⭐⭐⭐ 核心功能：自动滚动到底部 ⭐⭐⭐
-      // 使用 nextTick 确保 DOM 更新后再滚动
+      // 👇👇👇 从这里开始替换 👇👇👇
+      // 使用 nextTick + setTimeout 确保文字渲染完、高度撑开后再滚动
       nextTick(() => {
-        // 找到手机端的滚动容器（即 content-main）
-        const container = document.querySelector('.mode-mobile .content-main')
-        if (container) {
-          // 平滑滚动到底部
-          container.scrollTo({
-            top: container.scrollHeight,
-            behavior: 'smooth'
-          })
-        }
+        setTimeout(() => {
+          // 找到手机端的白色卡片容器
+          const container = document.querySelector('.mode-mobile .content-main')
+          // 只有在手机模式且容器存在时才滚动
+          if (container) {
+            container.scrollTo({
+              top: container.scrollHeight, // 滚到最底部
+              behavior: 'smooth'           // 平滑滚动
+            })
+          }
+        }, 100) // 100毫秒延时，关键！
       })
+      // 👆👆👆 替换结束 👆👆👆
 
       return 
     }
   }
 
+  // ... 后面的代码保持不变 ...
   if (currentIndex.value === slides.length - 1) {
     if (audioRef.value) {
       audioRef.value.pause()
