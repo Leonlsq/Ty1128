@@ -270,7 +270,7 @@ onMounted(() => {
     <transition name="fade">
       <div v-if="!isLoading && showDeviceSelector" class="device-selector-overlay">
         <div class="selector-box">
-          <h2>亲爱的Ty你是在用哪个设备打开的网页吖😊</h2>
+          <h2>亲爱的Ty你是在用哪个设备打开我们的网站的吖😊</h2>
           <p>✨选择你的设备✨</p>
           <div class="btn-group">
             <button @click.stop="selectDevice('mobile')">📱 手机 iPhone</button>
