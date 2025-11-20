@@ -55,7 +55,7 @@ const slides = [
       '/photos/b4.png'
     ],
     date: '2025.10.01 - 2025.10.05',
-    text: '刚重逢的喜悦还没散去，现实就给我上了一课。遇到的奇葩房东和搬家的一地鸡毛，让我在慕尼黑差点崩溃。\n\n那几天，我选择了‘消失’。不是不想找你，而是不敢。我看着满屋的狼藉，心里只有一个念头：‘隔着几千公里，你凭什么要在乎这么狼狈的我？’ 我怕我的负能量会把你吓跑，所以我想一个人扛。\n\n那时候的我以为，爱是只分享光鲜。但其实爱，是敢于把那个破碎的、狼狈的自己也拼凑进来，让你拥有一个完整的我。\n\n以后在你面前，笑的那个人是我，哭的那个人，同样也是我。',
+    text: '刚重逢的喜悦还没散去，现实就给我上了一课。遇到的奇葩房东和搬家的一地鸡毛，让我在慕尼黑差点崩溃。\n\n那几天，我选择了‘消失’。不是不想找你，而是不敢。我看着满屋的狼藉，心里只有一个念头：‘隔着几千公里，你凭什么要在乎如此狼狈的我？’ 我怕我的负能量会把你吓跑，所以我想一个人扛。\n\n那时候的我以为，爱是只分享光鲜。但其实爱，是敢于把那个破碎的、狼狈的自己也拼凑进来，让你拥有一个完整的我。\n\n从此以后，笑的那个人是我，哭的那个人，同样也是我。',
     backgroundType: 'image',
     backgroundImage: '/photos/4.webp', 
   },
@@ -64,7 +64,7 @@ const slides = [
     title: '📹 7分30秒，热闹里的“暂停键”',
     image: '/photos/c1.png',
     date: '2025.10.04 - 脱离苦海',
-    text: '搬进新家那天，感觉又被治愈了，说来又是幸运的一次。我迫不及待地拍了这个视频发给你，虽然名字叫‘脱离苦海’，但心里想的其实是‘想和你分享这份安稳’。\n\n现在回看，让我感慨和触动的不是当时有多幸运找到这样一个房子，而是你说‘和朋友在一起，视频看了一半’，最后又补了一句‘看完了’。\n\n即使在你热闹的生活里，你也愿意特意留出那漫长的7分30秒，透过屏幕来陪我。这份‘在意’，比房子更让我心安。',
+    text: '搬进新家那天，感觉又被治愈了，说来又是幸运的一次。我迫不及待地拍了这个视频发给你，虽然名字叫‘脱离苦海’，但心里想的其实是‘想和你分享这份安稳’。\n\n现在回看，让我感慨和触动的不是当时有多幸运找到这样一个房子，而是你说‘和朋友在一起，视频看了一半’，最后又补了一句‘看完了’。\n\n热闹的生活里被暂停的7分30秒，是属于我的吗。这份‘在意’，比安逸的新房子更让我心安。',
     backgroundType: 'image', 
     backgroundImage: '/photos/c2.jpg', 
   },
@@ -127,9 +127,9 @@ const typewriterEffect = (text: string, delay = 100) => {
   }, delay)
 }
 
-// ⭐ 修改 watch 逻辑：只有在解锁后才开始打字机
+// 监听解锁
 watch([currentIndex, isLocked], ([newIndex, newLockedState]) => {
-  if (newLockedState) return // 如果锁着，不执行
+  if (newLockedState) return 
 
   contentStep.value = 1 
   if (currentSlide.value.type === 'cover' && currentSlide.value.printText) {
@@ -138,7 +138,6 @@ watch([currentIndex, isLocked], ([newIndex, newLockedState]) => {
 })
 
 const nextSlide = () => {
-  // ⭐ 新增判断：如果没解锁，禁止操作
   if (isLoading.value || showDeviceSelector.value || isLocked.value) return
   if (showFireworksPage.value) return
 
@@ -152,36 +151,28 @@ const nextSlide = () => {
       .catch((e) => console.log('等待交互播放', e))
   }
 
-  // ⭐ 修改点：自动滚动逻辑
- // ... 前面的代码保持不变 ...
-
-  // 3. 内容页逐句显示逻辑
+  // ⭐⭐⭐ 修复版：自动滚动逻辑 ⭐⭐⭐
   if (currentSlide.value.type === 'content') {
     if (contentStep.value < currentSlideSentences.value.length) {
       contentStep.value++
       
-      // 👇👇👇 从这里开始替换 👇👇👇
-      // 使用 nextTick + setTimeout 确保文字渲染完、高度撑开后再滚动
+      // 使用 nextTick + 300ms 延时，确保手机端能滚到底
       nextTick(() => {
         setTimeout(() => {
-          // 找到手机端的白色卡片容器
           const container = document.querySelector('.mode-mobile .content-main')
-          // 只有在手机模式且容器存在时才滚动
           if (container) {
             container.scrollTo({
-              top: container.scrollHeight, // 滚到最底部
-              behavior: 'smooth'           // 平滑滚动
+              top: container.scrollHeight + 1000, // 滚得更深一点，确保到底
+              behavior: 'smooth'
             })
           }
-        }, 100) // 100毫秒延时，关键！
+        }, 300) 
       })
-      // 👆👆👆 替换结束 👆👆👆
 
       return 
     }
   }
 
-  // ... 后面的代码保持不变 ...
   if (currentIndex.value === slides.length - 1) {
     if (audioRef.value) {
       audioRef.value.pause()
@@ -197,7 +188,7 @@ const nextSlide = () => {
     setTimeout(() => {
       currentIndex.value++
       isAnimate.value = false
-      // 翻页后也要重置滚动位置到顶部
+      // 翻页后重置滚动位置
       nextTick(() => {
         const container = document.querySelector('.mode-mobile .content-main')
         if (container) container.scrollTop = 0
@@ -206,22 +197,21 @@ const nextSlide = () => {
   }
 }
 
-// --- 设备选择逻辑 ---
+// --- 设备选择 ---
 const selectDevice = (mode: string) => {
   deviceMode.value = mode
   showDeviceSelector.value = false
 }
 
-// ⭐ 新增：处理解锁成功事件
+// --- 解锁 ---
 const handleUnlock = () => {
-  isLocked.value = false // 解锁成功，进入 Cover 页
-  // 解锁后再播放音乐
+  isLocked.value = false 
   if (audioRef.value) {
     audioRef.value.play().then(() => { isMusicPlaying.value = true }).catch(() => { })
   }
 }
 
-// --- 图片预加载 ---
+// --- 预加载 ---
 const preloadImages = async () => {
   const imageUrls: string[] = []
   slides.forEach(slide => {
@@ -231,7 +221,6 @@ const preloadImages = async () => {
       imageUrls.push(...slide.images)
     }
   })
-  // ⭐ 预加载解锁界面的背景图 (请确保这里和 iOSUnlockPage.vue 里的路径一致)
   imageUrls.push('/photos/cover.jpg')
 
   const uniqueUrls = [...new Set(imageUrls)]
@@ -395,7 +384,7 @@ onMounted(() => {
 </template>
 
 <style>
-/* --- 3. 样式区 (保持不变) --- */
+/* --- 3. 样式区 --- */
 :root {
   --bg-color: #fdfcf8;
   --primary: #e4b1ab; 
@@ -432,53 +421,42 @@ body, html {
   transform: scale(0.85); 
   width: 95%;
 }
-/* --- 📱 Mobile (Phone) 终极居中修正版 --- */
 
-/* 1. 外层白色卡片容器 */
+/* --- 📱 Mobile (Phone) 终极居中修正版 --- */
 .app-container.mode-mobile .content-main {
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important; /* 强制子元素水平居中 */
+  align-items: center !important; /* 强制居中 */
   justify-content: flex-start !important;
   
-  /* 宽度控制：使用视窗宽度的 85%，并限制最大宽度 */
   width: 85vw !important; 
   max-width: 380px !important;
+  height: auto;
+  max-height: 80vh;
   
-  /* 强制居中：上下20px，左右自动 */
+  /* ⭐⭐⭐ 关键修复：padding 和 margin 确保居中且有底部留白 ⭐⭐⭐ */
+  padding: 30px 20px 100px 20px !important; /* 底部增加到100px留白 */
   margin: 20px auto !important; 
   
-  /* 清除桌面端的定位干扰 */
   left: auto !important;
   right: auto !important;
   transform: none !important;
   
-  padding: 30px 20px !important;
   gap: 20px;
   
-  box-sizing: border-box !important;
-  
-  /* 滚动支持 */
   overflow-y: auto !important; 
-  overflow-x: hidden !important; /* 禁止横向滚动 */
+  overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
+  box-sizing: border-box !important;
 }
 
 /* 2. 单张拍立得图片修正 */
 .app-container.mode-mobile .polaroid {
-  /* 强制清除所有外边距 */
   margin: 0 !important; 
-  
   width: 200px !important;
   padding: 10px 10px 35px 10px !important;
-  
-  /* 确保自身居中 */
-  align-self: center !important;
-  
-  /* 保持轻微旋转，但清除位移 */
+  align-self: center !important; /* Flex 居中 */
   transform: rotate(-2deg) !important;
-  
-  /* 清除定位 */
   position: relative !important;
   left: auto !important;
   top: auto !important;
@@ -487,26 +465,19 @@ body, html {
 
 /* 3. 拼贴画容器修正 */
 .app-container.mode-mobile .photo-collage {
-  /* 强制清除所有外边距 */
   margin: 0 !important;
-  
   width: 260px !important;
   height: 230px !important;
-  
-  /* 确保自身居中 */
-  align-self: center !important;
-  
-  /* 缩放必须以中心为原点，否则会歪 */
+  align-self: center !important; /* Flex 居中 */
   transform-origin: center center !important;
   transform: scale(0.95) !important;
-  
   position: relative !important;
   left: auto !important;
   top: auto !important;
   flex-shrink: 0 !important;
 }
 
-/* 拼贴画内部微调 (保持原样) */
+/* 拼贴画内部微调 */
 .app-container.mode-mobile .collage-1, 
 .app-container.mode-mobile .collage-2, 
 .app-container.mode-mobile .collage-3, 
@@ -522,8 +493,8 @@ body, html {
 .app-container.mode-mobile .text-area {
   width: 100% !important;
   text-align: center !important;
-  padding: 0 !important; /* 彻底清除内边距 */
-  margin: 0 !important;  /* 彻底清除外边距 */
+  padding: 0 !important; 
+  margin: 0 !important;
 }
 
 .app-container.mode-mobile .slide-title {
@@ -537,7 +508,7 @@ body, html {
 .app-container.mode-mobile .date-tag {
   font-size: 0.85rem !important;
   padding: 4px 14px !important;
-  margin: 0 auto 15px auto !important; /* 强制标签居中 */
+  margin: 0 auto 15px auto !important;
   display: inline-block !important;
 }
 
@@ -545,57 +516,30 @@ body, html {
   font-size: 1rem !important;
   line-height: 1.7 !important;
   margin: 6px 0 !important;
-  text-align: center !important; /* 强制文字居中 */
+  text-align: center !important;
 }
+
 /* --- 设备选择遮罩样式 --- */
 .device-selector-overlay {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+  z-index: 10000; display: flex; justify-content: center; align-items: center;
 }
 .selector-box {
-  text-align: center;
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.05);
+  text-align: center; background: white; padding: 40px; border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);
 }
-.selector-box h2 {
-  color: var(--text-main);
-  margin-bottom: 10px;
-}
-.selector-box p {
-  color: var(--text-light);
-  margin-bottom: 30px;
-}
-.btn-group {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+.selector-box h2 { color: var(--text-main); margin-bottom: 10px; }
+.selector-box p { color: var(--text-light); margin-bottom: 30px; }
+.btn-group { display: flex; flex-direction: column; gap: 15px; }
 .btn-group button {
-  padding: 15px 30px;
-  border: 1px solid #eee;
-  background: white;
-  border-radius: 12px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  color: var(--text-main);
-  font-weight: 500;
+  padding: 15px 30px; border: 1px solid #eee; background: white;
+  border-radius: 12px; font-size: 1rem; cursor: pointer;
+  transition: all 0.3s; color: var(--text-main); font-weight: 500;
 }
 .btn-group button:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(228, 177, 171, 0.4);
+  background: var(--primary); color: white; border-color: var(--primary);
+  transform: translateY(-2px); box-shadow: 0 5px 15px rgba(228, 177, 171, 0.4);
 }
 
 /* --- 其他通用样式 --- */
