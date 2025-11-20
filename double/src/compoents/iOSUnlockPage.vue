@@ -234,6 +234,9 @@ const handleKeyClick = (key: KeyItem) => {
   justify-content: center; align-items: center;
   cursor: pointer; transition: background 0.2s;
   backdrop-filter: blur(5px); -webkit-tap-highlight-color: transparent;
+  
+  /* ⭐ 核心修复：禁止双击缩放，同时消除300ms点击延迟 ⭐ */
+  touch-action: manipulation;
 }
 .key-btn:active:not(.empty-key) { background: rgba(255, 255, 255, 0.4); }
 .empty-key { background: transparent; cursor: default; }
