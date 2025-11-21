@@ -12,7 +12,7 @@ const showDeviceSelector = ref(false)
 const deviceMode = ref('') 
 const isLocked = ref(true) 
 
-// --- 1. 数据配置区 (保持不变) ---
+// --- 1. 数据配置区 ---
 const slides = [
   {
     type: 'cover', 
@@ -68,6 +68,28 @@ const slides = [
     backgroundType: 'image', 
     backgroundImage: '/photos/c2.jpg', 
   },
+  // 📸 10.10 Gallery
+  {
+    type: 'gallery',
+    title: '被分享欲填满的10月10日',
+    date: '2025.10.10',
+    backgroundType: 'image',
+    backgroundImage: '/photos/记录/1010/5.jpg', 
+    gallery: [
+      { img: '/photos/记录/1010/1.jpg', text: '早起看见忘给小孩改作业的你' },
+      { img: '/photos/记录/1010/2.jpg', text: '接着就是早上还没下班的月亮(然后我就去市政厅办事了😣)' },
+      { img: '/photos/记录/1010/3.jpg', text: '买菜随手拍拍拍 - 健康😁' },
+      { img: '/photos/记录/1010/m.JPG', text: '好可爱的寻猫启示。我也喜欢猫🐱' },
+      { img: '/photos/记录/1010/4.jpg', text: '刚给你看完欧洲超市的可颂就自己没忍住买一个吃🥐' },
+      { img: '/photos/记录/1010/66.jpg', text: '你也在逛超市。聊完咖啡我决定给你买点咖啡粉试试☕️' },
+      { img: '/photos/记录/1010/6.jpg', text: '国内油油的面包（除了山姆！）' },
+      { img: '/photos/记录/1010/7.jpg', text: '回到家吃刚刚买回来的速冻披萨(留子经典出装)' },
+      { img: '/photos/记录/1010/33.jpg', text: '看起来好好吃的面包😋，我说放心吃热量算我的，你说我害人😁' },
+      { img: '/photos/记录/1010/8.jpg', text: '最后还是买回去吃了...好好吃' },
+      { img: '/photos/记录/1010/9.png', text: '要我倒掉的蘑菇意面' }
+    ],
+    text: '从我这边的清晨七点，一直聊到你那边的日落黄昏。以前觉得“永远有话说”是一种能力，现在才发现，那是因为遇到对的人。虽然相隔万里，但感觉就像在互相的耳边碎碎念。隔着几千公里和六个小时的时差，我们的生活依然能严丝合缝地拼在一起，真好。',
+  },
   {
     type: 'letter', 
     image: "/photos/信.jpg",
@@ -78,7 +100,7 @@ const slides = [
 ]
 
 // --- 2. 逻辑控制区 ---
-const currentIndex = ref(0)
+const currentIndex = ref(0) 
 const isAnimate = ref(false)
 const displayedText = ref('') 
 const cursorVisible = ref(true) 
@@ -90,13 +112,32 @@ const contentStep = ref(1)
 
 const currentSlide = computed(() => slides[currentIndex.value])
 
+// 修改：允许 Content 和 Gallery 都能处理分句逻辑
 const currentSlideSentences = computed(() => {
   const slide = currentSlide.value
-  if (slide.type !== 'content' || !slide.text) return []
+  if ((slide.type !== 'content' && slide.type !== 'gallery') || !slide.text) return []
   return slide.text.replace(/。/g, '。|').split('|').map(s => s.trim()).filter(s => s)
 })
 
+// 修改：根据页面类型计算可见的文字数量
 const visibleSentences = computed(() => {
+  const slide = currentSlide.value
+
+  // 1. Gallery 模式逻辑：步数减去图片数量
+  if (slide.type === 'gallery') {
+    const galleryCount = slide.gallery?.length || 0
+    const textStep = Math.max(0, contentStep.value - galleryCount)
+    return currentSlideSentences.value.slice(0, textStep)
+  }
+
+  // 2. 第6页(Index 5)特殊逻辑：步数减去图片数量
+  if (currentIndex.value === 5 && slide.images) {
+    const imageCount = slide.images.length
+    const textStep = Math.max(0, contentStep.value - imageCount)
+    return currentSlideSentences.value.slice(0, textStep)
+  }
+  
+  // 3. 普通 Content 逻辑
   return currentSlideSentences.value.slice(0, contentStep.value)
 })
 
@@ -151,25 +192,43 @@ const nextSlide = () => {
       .catch((e) => console.log('等待交互播放', e))
   }
 
-  // ⭐⭐⭐ 修复版：自动滚动逻辑 ⭐⭐⭐
-  if (currentSlide.value.type === 'content') {
-    if (contentStep.value < currentSlideSentences.value.length) {
+  // ⭐⭐⭐ 自动滚动与分步逻辑 (兼容 Content 和 Gallery) ⭐⭐⭐
+  const isContent = currentSlide.value.type === 'content'
+  const isGallery = currentSlide.value.type === 'gallery'
+
+  if (isContent || isGallery) {
+    let totalSteps = 0
+
+    if (isGallery) {
+      // Gallery页：总步数 = 照片数 + 句子数
+      totalSteps = (currentSlide.value.gallery?.length || 0) + currentSlideSentences.value.length
+    } else {
+      // 第6页(Index 5)：总步数 = 照片数 + 句子数
+      if (currentIndex.value === 5 && currentSlide.value.images) {
+        totalSteps = currentSlide.value.images.length + currentSlideSentences.value.length
+      } else {
+        // 其他Content页：总步数 = 句子数
+        totalSteps = currentSlideSentences.value.length
+      }
+    }
+
+    if (contentStep.value < totalSteps) {
       contentStep.value++
       
-      // 使用 nextTick + 300ms 延时，确保手机端能滚到底
+      // 使用 nextTick + 延时，确保手机端能滚到底
       nextTick(() => {
         setTimeout(() => {
-          const container = document.querySelector('.mode-mobile .content-main')
+          const container = document.querySelector('.mode-mobile .content-main') || document.querySelector('.gallery-container')
           if (container) {
             container.scrollTo({
-              top: container.scrollHeight + 1000, // 滚得更深一点，确保到底
+              top: container.scrollHeight + 2000, 
               behavior: 'smooth'
             })
           }
-        }, 300) 
+        }, 100) 
       })
 
-      return 
+      return // 步数没走完，不翻页
     }
   }
 
@@ -219,6 +278,10 @@ const preloadImages = async () => {
     if (slide.backgroundImage) imageUrls.push(slide.backgroundImage)
     if (slide.images && slide.images.length > 0) {
       imageUrls.push(...slide.images)
+    }
+    // 预加载 gallery 里的图
+    if (slide.gallery && slide.gallery.length > 0) {
+      slide.gallery.forEach(item => imageUrls.push(item.img))
     }
   })
   imageUrls.push('/photos/cover.jpg')
@@ -334,8 +397,8 @@ onMounted(() => {
               <div
                 v-for="(imgSrc, index) in currentSlide.images"
                 :key="index"
-                class="polaroid-mini"
-                :class="`collage-${index + 1}`"
+                class="polaroid-mini pop-in-effect"
+                :class="[`collage-${index + 1}`, { 'delayed-show': currentIndex === 5 && contentStep <= index }]"
               >
                 <img :src="imgSrc" alt="Memory" />
               </div>
@@ -356,6 +419,44 @@ onMounted(() => {
                 {{ sentence }}
               </p>
             </div>
+          </div>
+        </div>
+
+        <div 
+          v-else-if="currentSlide.type === 'gallery'" 
+          class="slide-section content gallery-mode" 
+          :key="currentIndex"
+          :style="{ backgroundImage: `url(${currentSlide.backgroundImage})` }"
+        >
+          <div class="background-overlay"></div>
+          
+          <div class="content-main gallery-container">
+            <h3 class="gallery-title">{{ currentSlide.title }}</h3>
+            
+            <div class="gallery-grid">
+              <div 
+                v-for="(item, index) in currentSlide.gallery" 
+                :key="index" 
+                class="gallery-item"
+                v-show="index < contentStep"
+              >
+                <div class="polaroid-mini-card">
+                  <img :src="item.img" loading="lazy" />
+                </div>
+                <p class="gallery-text">{{ item.text }}</p>
+              </div>
+            </div>
+            
+            <div class="gallery-text-area" v-if="currentSlide.text">
+              <p 
+                v-for="(sentence, index) in visibleSentences" 
+                :key="index"
+                class="sentence-item gallery-sentence"
+              >
+                {{ sentence }}
+              </p>
+            </div>
+
           </div>
         </div>
 
@@ -412,50 +513,39 @@ body, html {
   background: linear-gradient(135deg, #fefdfb 0%, #fcebeb 100%); 
 }
 
-/* --- ⭐ 设备适配逻辑 (核心) --- */
-
-/* 默认 Desktop (PC) 保持原样 */
-
-/* Tablet (iPad) 模式：整体缩放 0.85 */
+/* --- 设备适配逻辑 --- */
 .app-container.mode-tablet .content-main {
   transform: scale(0.85); 
   width: 95%;
 }
 
-/* --- 📱 Mobile (Phone) 终极居中修正版 --- */
+/* Mobile (Phone) */
 .app-container.mode-mobile .content-main {
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important; /* 强制居中 */
+  align-items: center !important;
   justify-content: flex-start !important;
-  
   width: 85vw !important; 
   max-width: 380px !important;
   height: auto;
   max-height: 80vh;
-  
-  /* ⭐⭐⭐ 关键修复：padding 和 margin 确保居中且有底部留白 ⭐⭐⭐ */
-  padding: 30px 20px 100px 20px !important; /* 底部增加到100px留白 */
+  padding: 30px 20px 100px 20px !important;
   margin: 20px auto !important; 
-  
   left: auto !important;
   right: auto !important;
   transform: none !important;
-  
   gap: 20px;
-  
   overflow-y: auto !important; 
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box !important;
 }
 
-/* 2. 单张拍立得图片修正 */
 .app-container.mode-mobile .polaroid {
   margin: 0 !important; 
   width: 200px !important;
   padding: 10px 10px 35px 10px !important;
-  align-self: center !important; /* Flex 居中 */
+  align-self: center !important;
   transform: rotate(-2deg) !important;
   position: relative !important;
   left: auto !important;
@@ -463,12 +553,11 @@ body, html {
   flex-shrink: 0 !important;
 }
 
-/* 3. 拼贴画容器修正 */
 .app-container.mode-mobile .photo-collage {
   margin: 0 !important;
   width: 260px !important;
   height: 230px !important;
-  align-self: center !important; /* Flex 居中 */
+  align-self: center !important;
   transform-origin: center center !important;
   transform: scale(0.95) !important;
   position: relative !important;
@@ -477,7 +566,6 @@ body, html {
   flex-shrink: 0 !important;
 }
 
-/* 拼贴画内部微调 */
 .app-container.mode-mobile .collage-1, 
 .app-container.mode-mobile .collage-2, 
 .app-container.mode-mobile .collage-3, 
@@ -489,7 +577,6 @@ body, html {
 .app-container.mode-mobile .collage-3 { left: 20px !important; bottom: 10px !important; }
 .app-container.mode-mobile .collage-4 { right: 20px !important; bottom: 0 !important; }
 
-/* 4. 文字区域修正 */
 .app-container.mode-mobile .text-area {
   width: 100% !important;
   text-align: center !important;
@@ -599,7 +686,6 @@ body, html {
 .fade-leave-to { opacity: 0; transform: translateY(-20px); }
 @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-/* --- 照片拼贴容器 (四角分散版) --- */
 .photo-collage { flex-shrink: 0; width: 550px; height: 500px; position: relative; margin-left: -120px; margin-top: -50px; margin-bottom: -50px; z-index: 10; }
 .polaroid-mini { position: absolute; background: white; padding: 8px 8px 35px 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.02) inset; border-radius: 4px; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
 .polaroid-mini img { width: 100%; height: auto; object-fit: cover; border-radius: 2px; display: block; }
@@ -609,10 +695,147 @@ body, html {
 .collage-3 { width: 210px; bottom: 20px; left: 20px; transform: rotate(3deg); z-index: 13; }
 .collage-4 { width: 200px; bottom: 10px; right: 10px; transform: rotate(-4deg); z-index: 14; }
 
-/* --- Loading 样式 --- */
 .loading-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #fdfcf8; z-index: 9999; display: flex; justify-content: center; align-items: center; }
 .loading-content { text-align: center; color: var(--primary); }
 .loading-content p { margin-top: 20px; font-size: 1.2rem; letter-spacing: 2px; font-family: "Microsoft YaHei", sans-serif; }
 .spinner { width: 50px; height: 50px; border: 3px solid rgba(228, 177, 171, 0.3); border-radius: 50%; border-top-color: var(--primary); animation: spin-loading 1s ease-in-out infinite; margin: 0 auto; }
 @keyframes spin-loading { to { transform: rotate(360deg); } }
+
+/* --- Gallery 画廊模式样式 --- */
+.gallery-container {
+  flex-direction: column !important;
+  align-items: center;
+  height: 80vh; 
+  overflow-y: auto !important;
+  padding-bottom: 100px !important;
+}
+
+.gallery-title {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 0px white;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+/* 单个卡片容器 */
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px; 
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes pop-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 迷你拍立得效果 */
+.polaroid-mini-card {
+  background: white;
+  padding: 8px 8px 25px 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transform: rotate(-2deg);
+  transition: transform 0.3s;
+  width: 100%;
+}
+
+.gallery-item:nth-child(even) .polaroid-mini-card {
+  transform: rotate(2deg); 
+}
+
+.polaroid-mini-card img {
+  width: 100%;
+  height: 150px; 
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.gallery-text {
+  background: rgba(255,255,255,0.8);
+  padding: 5px 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-family: 'ZCOOL KuaiLe', cursive;
+  color: var(--text-main);
+  font-size: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 手机端画廊适配 */
+.mode-mobile .gallery-item {
+  width: 100% !important; 
+  flex-direction: row; 
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.mode-mobile .polaroid-mini-card {
+  width: 120px; 
+  flex-shrink: 0;
+  transform: rotate(-3deg) !important;
+}
+
+.mode-mobile .gallery-text {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 1rem;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* --- 新增样式：第6页照片控制 & Gallery文本区 --- */
+
+/* 第6页照片的弹出效果 */
+.pop-in-effect {
+  opacity: 1;
+  transform: scale(1) rotate(var(--rotation, 0deg)); 
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 第6页照片的隐藏状态 */
+.delayed-show {
+  opacity: 0;
+  transform: scale(0.5) !important; 
+  pointer-events: none;
+}
+
+/* Gallery 文字区域容器 */
+.gallery-text-area {
+  width: 90%;
+  max-width: 800px;
+  margin-top: 30px;
+  margin-bottom: 50px; 
+  text-align: center;
+  background: rgba(255,255,255,0.6);
+  padding: 20px;
+  border-radius: 15px;
+  flex-shrink: 0; /* 防止压缩 */
+}
+
+/* Gallery 单句文字样式 */
+.gallery-sentence {
+  text-align: center !important;
+  margin-bottom: 10px;
+  font-size: 1.1rem !important;
+  color: var(--text-main);
+  font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
+}
 </style>
