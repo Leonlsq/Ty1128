@@ -68,7 +68,6 @@ const slides = [
     backgroundType: 'image', 
     backgroundImage: '/photos/c2.jpg', 
   },
-  // 📸 10.10 Gallery
   {
     type: 'gallery',
     title: '被分享欲填满的10月10日',
@@ -92,7 +91,7 @@ const slides = [
 
   {
     type: 'gallery',
-    title: '记录生活的我',
+    title: '按下快门记录的我',
     date: '2025.10',
     backgroundType: 'image',
     backgroundImage: '/photos/记录/back1.jpeg', 
@@ -119,6 +118,125 @@ const slides = [
     ],
     text: '这里有深秋的树、有来自中国的锁、还有我努力照顾好自己的证据（虽然偶尔也有翻车的时候）。从被剪坏的头发到TUM的开学典礼，从第一次尝试的学校‘白人餐’到路边偶遇的黑猫。这些看似毫无关联的碎片，拼凑出了我在慕尼黑的十月。其实生活里哪有那么多惊天动地的大事，大多都是这些鸡毛蒜皮、无关紧要。但我还是想把这些微不足道的瞬间都打包寄给你。因为在这个世界上，我所有的分享欲，所有的碎碎念，还有那些想说未说的话，都只想留给你。',
   },
+
+{
+    type: 'gallery',
+    title: '按下快门记录的你',
+    date: '2025.10',
+    backgroundType: 'image',
+    backgroundImage: '/photos/s.jpg', // 选了一张风景图做背景，可自行更换
+    gallery: [
+      { img: '/photos/ty/41.jpg', text: '家教教小孩🧒' },
+      { img: '/photos/ty/39.jpg', text: '人挤人的音乐节（担心死我了）' },
+      { img: '/photos/ty/34.jpg', text: '这沙发，100%好货' },
+      { img: '/photos/ty/32.jpg', text: '爬坡爬坡！' },
+      { img: '/photos/ty/29.jpg', text: '便利店里指点江山' },
+      { img: '/photos/ty/27.jpg', text: '找到共享单车拉✌️ '},
+      { img: '/photos/ty/25.jpg', text: '投送咖啡粉，爱你' },
+      { img: '/photos/ty/23.jpg', text: '看出来了，拉花是Ty' },
+      { img: '/photos/ty/21.jpg', text: '这个架子在防舍友[捂嘴笑]' },
+      { img: '/photos/ty/19.jpg', text: '天气好好' },
+      { img: '/photos/ty/18.jpg', text: '帮我也把把脉' },
+      { img: '/photos/ty/15.jpg', text: '健身成果展示ing' },
+      { img: '/photos/ty/14.jpg', text: '这个拼豆（早该想到的）' },
+      { img: '/photos/ty/13.jpg', text: '热心舍友Ty（不要学打篮球了😨）' },
+      { img: '/photos/ty/11.jpg', text: '拼豆作品集' },
+      { img: '/photos/ty/6.jpg', text: '可爱的勺子碎了😭' },
+      { img: '/photos/ty/66.jpg', text: '跟我说了这件事之后就下单啦。宠你' },
+      { img: '/photos/ty/5.jpg', text: 'Leon摄影有限公司出品' },
+      { img: '/photos/ty/3.jpg', text: '最讨厌的化学' },
+      { img: '/photos/ty/1.jpg', text: '现在我才知道这个叫乌萨琪' }
+    ],
+    text: '这里有让我担心的音乐节人海、有让人头大的化学公式、还有你用拼豆一点点拼出来的可爱世界（送我的拼得好好！）。从便利店的指点江山到健身房的汗水，从那罐漂洋过海的咖啡粉到摔碎的小勺子。如果不看这些照片，我大概无法想象你在我看不到的地方，把生活过得这么热气腾腾。虽然隔着时差，但我好像能透过屏幕，摸到你生活的脉搏。你负责在镜头那边闪闪发光，我负责在镜头这边，把你的每一个瞬间都好好收藏。',
+  },
+
+  // ✨✨✨ 新增：过渡页 1 ✨✨✨
+  {
+    type: 'transition',
+    text: '还有就是......'
+  },
+
+  // ✨✨✨ 新增：过渡页 2 ✨✨✨
+  {
+    type: 'transition',
+    text: '关于吃吃吃吃😋：我们开启了疯狂的“云投喂”模式。\n在这几千公里的距离里，\n分享一日三餐，成了我们最独特的拥抱方式。'
+  },
+
+  // ✨✨✨ Ty 的美食篇 ✨✨✨
+  {
+    type: 'gallery',
+    title: 'ty吃吃吃，Leon馋馋馋',
+    date: '2025.10 - 2025.11',
+    backgroundType: 'image',
+    backgroundImage: '/photos/ty/77.png', 
+    gallery: [
+      { img: '/photos/ty/ty吃/55.jpg', text: '红豆面包🫘' },
+      { img: '/photos/ty/ty吃/66.jpg', text: '恰巴塔' },
+      { img: '/photos/ty/ty吃/7.jpg', text: '低卡牛肉干' },
+      { img: '/photos/ty/ty吃/37.jpg', text: '葡萄雪糕（慢慢蛋白质）' },
+      { img: '/photos/ty/ty吃/778.jpg', text: '杂粮饭+鸡胸肉' },
+      { img: '/photos/ty/ty吃/46.jpg', text: '美味的米面包' },
+      { img: '/photos/ty/ty吃/14.jpg', text: '福袋（麻酱好好吃🤤）' },
+      { img: '/photos/ty/ty吃/43.png', text: '芋泥饼，吃美了' },
+      { img: '/photos/ty/ty吃/21.png', text: '蛋糕投喂，评鉴ing...' },
+      { img: '/photos/ty/ty吃/54.jpg', text: '鱼蛋，我吃' },
+      { img: '/photos/ty/ty吃/85.jpg', text: '这个练后餐蛋白质达标！' },
+      { img: '/photos/ty/ty吃/86.jpg', text: '培根蔬萃双层牛堡！' },
+      { img: '/photos/ty/ty吃/19.jpg', text: '健康！' },
+      { img: '/photos/ty/ty吃/73.jpg', text: '替我品尝的三明治🥹' },
+      { img: '/photos/ty/ty吃/17.jpg', text: '0卡😁' },
+      { img: '/photos/ty/ty吃/16.jpg', text: '减脂吃得好平淡（已经很瘦拉！）' },
+      { img: '/photos/ty/ty吃/18.jpg', text: '又是Sandwich！' },
+      { img: '/photos/ty/ty吃/13.jpg', text: '突然感觉舍友好好，嘻嘻' },
+      { img: '/photos/ty/ty吃/3.jpg', text: '健身餐里最馋我的一次' },
+      { img: '/photos/ty/ty吃/4.jpg', text: '卡朋的这个轻食好好吃' },
+      { img: '/photos/ty/ty吃/5.jpg', text: '珠海玩完回来被老哥”强“拉着去吃的宵夜' },
+      { img: '/photos/ty/ty吃/6.jpg', text: '看着就健康好吃的粉' },
+      { img: '/photos/ty/ty吃/35.jpg', text: '巨无敌无敌好吃的鱿鱼面！' },
+      { img: '/photos/ty/ty吃/77.jpg', text: '华夫饼🧇' },
+      { img: '/photos/ty/ty吃/87.jpg', text: '🍽️' },
+      { img: '/photos/ty/ty吃/89.jpg', text: '有一个面包好像不是很好吃哦' },
+      { img: '/photos/ty/ty吃/2.jpg', text: '妈妈做得猪蹄😋' },
+      { img: '/photos/ty/ty吃/1.jpg', text: '自烤恰巴塔' }
+    ],
+    text: '',
+  },
+
+  // ✨✨✨ Leon 的美食篇 ✨✨✨
+  {
+    type: 'gallery',
+    title: '食堂和廖大厨之间徘徊',
+    date: '2025.10 - 2025.11',
+    backgroundType: 'image',
+    backgroundImage: '/photos/ty/leon吃/7.jpg', 
+    gallery: [
+      { img: '/photos/ty/leon吃/1.jpg', text: '牛肉蛋饭，溏心蛋😋' },
+      { img: '/photos/ty/leon吃/2.jpg', text: '菜椒牛肉' },
+      { img: '/photos/ty/leon吃/3.jpg', text: '生日陪我吃的麦当劳🥹' },
+      { img: '/photos/ty/leon吃/4.jpg', text: '烤鱼+npc' },
+      { img: '/photos/ty/leon吃/5.jpg', text: '番茄猪排意面' },
+      { img: '/photos/ty/leon吃/6.jpg', text: '芝士烤土豆' },
+      { img: '/photos/ty/leon吃/8.jpg', text: '剪发哥家吃烤肉' },
+      { img: '/photos/ty/leon吃/9.jpg', text: '简简单单加个蛋' },
+      { img: '/photos/ty/leon吃/10.jpg', text: '烤鸡翅😋' },
+      { img: '/photos/ty/leon吃/11.jpg', text: '《午餐》' },
+      { img: '/photos/ty/leon吃/12.jpg', text: '一整个的土豆🥔' },
+      { img: '/photos/ty/leon吃/13.jpg', text: '质（脂）量最高的一餐' },
+      { img: '/photos/ty/leon吃/14.jpg', text: '柴鸡胸肉+好吃的甜包' },
+      { img: '/photos/ty/leon吃/15.jpg', text: '炒鸡肉 + 🍣' },
+      { img: '/photos/ty/leon吃/17.jpg', text: '还是熟悉的猪排+NPC' }, 
+      { img: '/photos/ty/leon吃/18.jpg', text: '天才双祺' },
+      { img: '/photos/ty/leon吃/19.jpg', text: '。。。' },
+      { img: '/photos/ty/leon吃/20.jpg', text: '。。。' },
+      { img: '/photos/ty/leon吃/21.jpg', text: '菜椒炒肉丝，好好吃！' },
+      { img: '/photos/ty/leon吃/22.jpg', text: '。😁。好吃。' },
+      { img: '/photos/ty/leon吃/23.jpg', text: '今天的鸡排还不错哦' },
+      { img: '/photos/ty/leon吃/24.jpg', text: '鸡肉（实际蔬菜）卷' },
+      { img: '/photos/ty/leon吃/25.jpg', text: '排骨😋' }
+    ],
+    text: '有人说，分享欲是爱情的最高级。所以哪怕是一碗简单的面、一个路边的面包，我都想拍给你看。因为在这些琐碎的照片背后，藏着我没说出口的话：‘正在吃饭的这一刻，我又想你了。’ 谢谢你愿意接住我所有的碎碎念，让我在慕尼黑的每一餐都不觉得孤单。虽然我们无法同桌而食，但每一张照片发出的瞬间，我们都在陪对方度过一日三餐。是这些食物，连接了我们平行的生活，也连接了彼此想念的心。',
+  },
+
   {
     type: 'letter', 
     image: "/photos/信.jpg",
@@ -264,7 +382,7 @@ const nextSlide = () => {
   if (currentIndex.value === slides.length - 1) {
     if (audioRef.value) {
       audioRef.value.pause()
-      audioRef.value.src = '/music/你是我的风景.mp3'
+      audioRef.value.src = '/music/小幸运.mp3'
       audioRef.value.load()
       audioRef.value.play()
         .then(() => { isMusicPlaying.value = true })
@@ -490,6 +608,16 @@ onMounted(() => {
         </div>
 
         <div 
+          v-else-if="currentSlide.type === 'transition'" 
+          class="slide-section transition-slide" 
+          :key="currentIndex"
+        >
+          <div class="transition-content">
+            <p>{{ currentSlide.text }}</p>
+          </div>
+        </div>
+
+        <div 
           v-else-if="currentSlide.type === 'letter'" 
           class="slide-section letter" 
           :key="currentIndex"
@@ -543,37 +671,97 @@ body, html {
 }
 
 /* --- 设备适配逻辑 --- */
+/* --- 设备适配逻辑 (iPad 11寸优化版) --- */
+
+/* 1. 平板默认（通常是横屏 Landscape） */
 .app-container.mode-tablet .content-main {
-  transform: scale(0.85); 
-  width: 95%;
+  transform: scale(0.92); /* 11寸屏幕较大，稍微放大一点视觉冲击力更强 */
+  width: 90%;
+  max-width: 1000px;
 }
 
-/* Mobile (Phone) */
+/* 2. 平板竖屏优化 (Portrait) - 当Ty竖着拿iPad时 */
+@media screen and (orientation: portrait) {
+  .app-container.mode-tablet .content-main {
+    flex-direction: column !important; /* 强制改为上下布局 */
+    align-items: center !important;
+    justify-content: flex-start !important;
+    transform: none !important; /* 取消缩放，使用自然宽度 */
+    width: 88% !important;
+    height: auto !important;
+    max-height: 85vh; /* 留出上下边距，防止贴边 */
+    overflow-y: auto !important; /* 内容多时允许上下滑动 */
+    padding: 40px 30px !important;
+    gap: 30px;
+  }
+
+  /* 图片样式调整 */
+  .app-container.mode-tablet .polaroid {
+    margin: 0 !important;
+    width: 340px !important; /* 图片放大，适应竖屏宽度 */
+    transform: rotate(-2deg) !important;
+    flex-shrink: 0;
+  }
+
+  /* 第6页的多图拼贴调整 */
+  .app-container.mode-tablet .photo-collage {
+    margin: 0 !important;
+    transform: scale(0.85) !important; /* 拼贴稍微缩小以适应 */
+    flex-shrink: 0;
+  }
+
+  /* 文字区域调整 */
+  .app-container.mode-tablet .text-area {
+    width: 100% !important;
+    text-align: center !important; /* 文字居中，更有海报感 */
+    padding-left: 0 !important;
+  }
+
+  .app-container.mode-tablet .slide-title {
+    text-align: center !important;
+    font-size: 1.6rem !important;
+  }
+
+  .app-container.mode-tablet .text-area p.sentence-item {
+    text-align: center !important;
+    font-size: 1.25rem !important; /* 字号适中 */
+  }
+  
+  /* 修复画廊在竖屏平板的显示 */
+  .app-container.mode-tablet .gallery-grid {
+    gap: 25px;
+  }
+}
+/* Mobile (Phone) - 针对 iPhone 6.3寸 (Pro) 优化 */
 .app-container.mode-mobile .content-main {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  width: 85vw !important; 
-  max-width: 380px !important;
+  /* 👇 宽度调整：90vw 保证左右留白，max-width 放大到 430px 适配大屏手机 */
+  width: 90vw !important; 
+  max-width: 430px !important;
   height: auto;
-  max-height: 80vh;
-  padding: 30px 20px 100px 20px !important;
+  max-height: 85vh; /* 给底部留一点空间 */
+  /* 👇 顶部增加 padding，适配灵动岛区域 */
+  padding: 50px 20px 120px 20px !important;
   margin: 20px auto !important; 
   left: auto !important;
   right: auto !important;
   transform: none !important;
-  gap: 20px;
+  gap: 25px; /* 增加间距，显得不拥挤 */
   overflow-y: auto !important; 
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box !important;
 }
 
+/* 拍立得照片容器 */
 .app-container.mode-mobile .polaroid {
   margin: 0 !important; 
-  width: 200px !important;
-  padding: 10px 10px 35px 10px !important;
+  /* 👇 照片宽度加宽，视觉冲击力更强 */
+  width: 240px !important; 
+  padding: 12px 12px 40px 12px !important;
   align-self: center !important;
   transform: rotate(-2deg) !important;
   position: relative !important;
@@ -582,17 +770,88 @@ body, html {
   flex-shrink: 0 !important;
 }
 
+/* 第6页的多图拼贴 */
 .app-container.mode-mobile .photo-collage {
   margin: 0 !important;
-  width: 260px !important;
-  height: 230px !important;
+  width: 280px !important;
+  height: 250px !important;
   align-self: center !important;
   transform-origin: center center !important;
-  transform: scale(0.95) !important;
+  transform: scale(1) !important; /* 6.3寸屏幕不需要缩放太多 */
   position: relative !important;
   left: auto !important;
   top: auto !important;
   flex-shrink: 0 !important;
+}
+
+.app-container.mode-mobile .collage-1, 
+.app-container.mode-mobile .collage-2, 
+.app-container.mode-mobile .collage-3, 
+.app-container.mode-mobile .collage-4 {
+  width: 130px !important; /* 拼贴小图也稍微放大 */
+}
+.app-container.mode-mobile .collage-1 { left: 0px !important; top: 0 !important; }
+.app-container.mode-mobile .collage-2 { right: 0px !important; top: 15px !important; }
+.app-container.mode-mobile .collage-3 { left: 10px !important; bottom: 15px !important; }
+.app-container.mode-mobile .collage-4 { right: 10px !important; bottom: 0 !important; }
+
+/* 文字区域 */
+.app-container.mode-mobile .text-area {
+  width: 100% !important;
+  text-align: center !important;
+  padding: 0 !important; 
+  margin: 0 !important;
+}
+
+.app-container.mode-mobile .slide-title {
+  font-size: 1.4rem !important; /* 标题加大 */
+  margin: 10px 0 15px 0 !important;
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.app-container.mode-mobile .date-tag {
+  font-size: 0.9rem !important;
+  padding: 5px 16px !important;
+  margin: 0 auto 20px auto !important;
+  display: inline-block !important;
+}
+
+.app-container.mode-mobile .text-area p.sentence-item {
+  font-size: 1.15rem !important; /* 正文加大，阅读更舒适 */
+  line-height: 1.8 !important;
+  margin: 8px 0 !important;
+  text-align: center !important;
+}
+
+/* 手机端画廊适配 */
+.mode-mobile .gallery-item {
+  width: 100% !important; 
+  flex-direction: row; /* 保持左右排版：左图右文 */
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  background: rgba(255,255,255,0.4); /* 加一点点背景让文字更清楚 */
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.mode-mobile .polaroid-mini-card {
+  width: 130px; /* 画廊小图放大 */
+  flex-shrink: 0;
+  transform: rotate(-2deg) !important;
+}
+
+.mode-mobile .gallery-text {
+  flex-grow: 1;
+  text-align: left;
+  font-size: 1.1rem; /* 画廊文字加大 */
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .app-container.mode-mobile .collage-1, 
@@ -868,5 +1127,35 @@ body, html {
   animation: soft-float-up 4.0s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   line-height: 1.8;
   font-weight: bold; /* 稍微加粗以防背景干扰 */
+}
+
+/* ✨✨✨ 新增：过渡页样式 ✨✨✨ */
+.slide-section.transition-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.transition-content {
+  z-index: 5;
+  text-align: center;
+  max-width: 800px;
+}
+
+.transition-content p {
+  font-size: 2rem;
+  color: var(--primary);
+  line-height: 1.8;
+  font-weight: bold;
+  white-space: pre-line;
+  font-family: 'ZCOOL KuaiLe', cursive, "Microsoft YaHei", sans-serif;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+  animation: soft-float-up 2s ease-out forwards;
+}
+
+/* 手机端过渡页适配 */
+.mode-mobile .transition-content p {
+  font-size: 1.5rem;
 }
 </style>
