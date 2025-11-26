@@ -448,9 +448,16 @@ watch([currentIndex, isLocked], ([newIndex, newLockedState]) => {
   }
 })
 
-const nextSlide = () => {
+// ⭐⭐⭐ 修改点：添加参数 isFromButton，用于区分是点击背景还是点击按钮 ⭐⭐⭐
+const nextSlide = (isFromButton: boolean | Event = false) => {
   if (isLoading.value || showDeviceSelector.value || isLocked.value) return
   if (showFireworksPage.value) return
+
+  // ⭐⭐⭐ 新增逻辑：如果是最后一页(信件页)，必须是通过按钮点击(isFromButton === true)才能翻页
+  const isConfirmed = isFromButton === true
+  if (currentSlide.value.type === 'letter' && !isConfirmed) {
+    return
+  }
 
   if (currentSlide.value.type === 'cover' && !isTypingFinished.value) {
     return 
@@ -790,7 +797,7 @@ onMounted(() => {
           <div class="letter-paper">
             <h2>{{ currentSlide.title }}</h2>
             <p style="white-space: pre-line;">{{ currentSlide.text }}</p>
-            <button class="gift-btn" @click.stop="nextSlide">{{ currentSlide.buttonText }}</button>
+            <button class="gift-btn" @click.stop="nextSlide(true)">{{ currentSlide.buttonText }}</button>
           </div>
         </div>
 
