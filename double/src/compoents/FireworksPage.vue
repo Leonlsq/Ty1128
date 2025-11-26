@@ -5,7 +5,7 @@
     <transition name="fade">
       <div v-if="!hasStarted" class="intro-overlay">
         <div class="intro-text-wrapper">
-          <p class="intro-text">轻触屏幕</p>
+          <p class="intro-text">轻触屏幕 开启生日惊喜</p>
         </div>
       </div>
     </transition>
@@ -499,62 +499,63 @@ canvas { display: block; }
 .flip-leave-active { display: none; }
 @keyframes flipIn { from { opacity: 0; transform: perspective(400px) rotateX(-90deg); } to { opacity: 1; transform: perspective(400px) rotateX(0deg); } }
 
-/* 🌟🌟🌟 平板/iPad 核心适配区域 🌟🌟🌟 */
+/* 🌟🌟🌟 平板/iPad 核心适配区域 (1200px以下触发) 🌟🌟🌟 */
 @media screen and (max-width: 1200px) {
   /* 1. 标题区 */
   .overlay-content {
     justify-content: flex-start;
-    padding-top: 15vh; /* 保持不变，留出上部空间 */
+    padding-top: 12vh;
   }
+  .title { font-size: 2.2rem; margin-bottom: 0.5rem; }
+  .subtitle { font-size: 1rem; }
   
-  /* 2. 左侧独白：调整为“左上”区域，去背景 */
+  /* 2. 左侧独白：🔴 强制收窄宽度，使其变成瘦高的形状 */
   .final-text-left {
     position: absolute;
-    /* 核心修改：位置提得比较高 (42%)，避开底部中间的小人 */
-    top: 42%; 
-    left: 2%; /* 贴近左侧 */
-    transform: translateY(-50%); /* 保持垂直方向的自身居中修正 */
-    width: 40%; /* 限制宽度，不要伸到屏幕中间 */
+    top: 55%; /* 往下挪一点，避开标题 */
+    left: 3%; /* 紧贴左边 */
+    transform: translateY(-50%); 
+    
+    /* 👇 关键修改：把宽度从之前的40%砍到28%，强制文字换行 */
+    width: 28%; 
     max-width: none;
     
-    background: none; /* ✨ 去掉背景色 */
-    padding: 0; /* 去掉内边距 */
+    background: none; 
+    padding: 0; 
     text-align: left;
   }
   
   .final-text-left p {
-    font-size: 1rem; /* 字体稍微改小一点点适应窄屏 */
-    line-height: 1.6;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.9); /* 加强阴影，保证无背景时也能看清 */
+    font-size: 1.05rem; 
+    line-height: 1.7; /* 增加行距，更像一首诗 */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
   }
 
-  /* 3. 右侧倒计时：调整为“右上”区域，去背景 */
+  /* 3. 右侧倒计时：位置对称 */
   .right-clock-container {
     position: absolute;
-    /* 核心修改：位置和左侧文字平行 (42%) */
-    top: 42%;
-    right: 2%; /* 贴近右侧 */
-    bottom: auto; /* 取消之前的底部定位 */
+    top: 55%; 
+    right: 3%; /* 紧贴右边 */
+    bottom: auto; 
     left: auto;
-    transform: translateY(-50%) scale(0.75); /* 缩小至 75% */
-    transform-origin: right center; /* 缩放原点靠右 */
     
-    background: none; /* ✨ 去掉背景色 */
-    border: none; /* 去掉边框 */
-    box-shadow: none; /* 去掉阴影 */
+    transform: translateY(-50%) scale(0.75); 
+    transform-origin: right center; 
+    
+    background: none; 
+    border: none; 
+    box-shadow: none; 
     padding: 0;
   }
 
-  /* 4. 调整倒计时数字卡片，保证无背景时的清晰度 */
   .flip-card {
-    background: rgba(255, 255, 255, 0.2); /*稍微加深一点点数字背景*/
+    background: rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
 }
 
 /* 📱 手机端适配 (更小的屏幕) */
 @media screen and (max-width: 600px) {
-  /* 手机太窄了，只能变回上下堆叠，不然看不清 */
   .final-text-left { top: 35%; width: 90%; left: 5%; text-align: center; }
   .right-clock-container { top: auto; bottom: 10vh; right: 50%; transform: translate(50%, 0) scale(0.7); transform-origin: center bottom; }
 }
