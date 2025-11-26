@@ -17,7 +17,10 @@
         </h1>
 
         <div class="subtitle-container" :class="{ 'visible': showCenterSubtitle }">
-          <p class="subtitle">愿我们的爱，如这漫天烟火，绚烂且长明。</p>
+          <p class="subtitle">
+            现实的烟花易冷，但我为你写的这一场，永远不会熄灭。<br />
+            愿我们的爱，如这漫天烟火，绚烂且长明。
+          </p>
           <p class="date">2025.11.28</p> 
         </div>
       </div>
@@ -25,7 +28,6 @@
 
     <transition name="fade-slow">
       <div v-if="showBottomText" class="bottom-text-overlay">
-        <p class="new-chinese-text">相遇已是上上签，再相遇便是一辈子。</p>
       </div>
     </transition>
 
@@ -106,7 +108,8 @@ const showRightClock = ref(false); // 右侧时钟
 
 // 左侧打字机相关
 const displayedFinalText = ref(''); 
-const fullFinalText = "这场烟花不仅是我数十小时的工作，也是我们爱的见证。";
+// \u3000 代表一个汉字宽度的空格
+const fullFinalText = "\u3000\u3000其实我不记得和AI一起改了多少个 Bug， 也不记得熬了几个夜。 我只记得，在敲下每一行代码的时候， 脑海里全是你看到它时惊喜的样子。 只要你笑了，这一切就有了意义。\n\u3000\u3000汤悦，生日快乐，往后余生，年年岁岁有我。";
 const isFinalTextTyping = ref(false);
 const TYPE_SPEED = 250; 
 
@@ -499,7 +502,15 @@ canvas { display: block; }
   transform: translateY(0);
 }
 
-.subtitle { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; font-size: clamp(1rem, 2vw, 1.5rem); font-weight: 300; color: rgba(255, 255, 255, 0.8); letter-spacing: 4px; margin-bottom: 1.5rem; }
+.subtitle { 
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+  font-size: clamp(1rem, 2vw, 1.5rem); 
+  font-weight: 300; 
+  color: rgba(255, 255, 255, 0.8); 
+  letter-spacing: 4px; 
+  margin-bottom: 1.5rem;
+  line-height: 1.6; /* 新增：增加行高，让两行字不挤在一起 */
+}
 .date { font-size: 0.9rem; color: rgba(255, 255, 255, 0.5); letter-spacing: 2px; font-family: monospace; margin-bottom: 1rem; }
 
 /* Bottom Text */
@@ -508,7 +519,14 @@ canvas { display: block; }
 
 /* Left Text */
 .final-text-left { position: absolute; top: 50%; left: 5%; transform: translateY(-50%); max-width: 300px; text-align: left; z-index: 10005; pointer-events: none; }
-.final-text-left p { font-family: "Songti SC", "SimSun", serif; font-size: 1.3rem; line-height: 1.8; color: rgba(255, 255, 255, 0.85); text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.final-text-left p { 
+  font-family: "Songti SC", "SimSun", serif; 
+  font-size: 1.3rem; 
+  line-height: 1.8; 
+  color: rgba(255, 255, 255, 0.85); 
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  white-space: pre-wrap; /* ✨ 关键修改：允许识别 \n 换行符 */
+}
 .cursor { display: inline-block; width: 2px; height: 1em; background-color: white; vertical-align: text-bottom; animation: blink-caret 0.75s step-end infinite; }
 
 /* ⭐ 右侧翻页时钟样式 ⭐ */

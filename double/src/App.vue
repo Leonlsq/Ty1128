@@ -2,7 +2,6 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue' 
 // 👇 请确保路径正确
 import FireworksPage from './compoents/FireworksPage.vue'
-// 👇 引入新的解锁组件
 import iOSUnlockPage from './compoents/iOSUnlockPage.vue'
 
 // --- 0. 状态管理 ---
@@ -166,7 +165,7 @@ const slides = [
   // ✨✨✨ Ty 的美食篇 ✨✨✨
   {
     type: 'gallery',
-    title: 'ty吃吃吃，Leon馋馋馋',
+    title: 'Ty的“云投喂”日记',
     date: '2025.10 - 2025.11',
     backgroundType: 'image',
     backgroundImage: '/photos/ty/77.png', 
@@ -174,7 +173,7 @@ const slides = [
       { img: '/photos/ty/ty吃/55.jpg', text: '红豆面包🫘' },
       { img: '/photos/ty/ty吃/66.jpg', text: '恰巴塔' },
       { img: '/photos/ty/ty吃/7.jpg', text: '低卡牛肉干' },
-      { img: '/photos/ty/ty吃/37.jpg', text: '葡萄雪糕（慢慢蛋白质）' },
+      { img: '/photos/ty/ty吃/37.jpg', text: '葡萄雪糕（满满蛋白质）' },
       { img: '/photos/ty/ty吃/778.jpg', text: '杂粮饭+鸡胸肉' },
       { img: '/photos/ty/ty吃/46.jpg', text: '美味的米面包' },
       { img: '/photos/ty/ty吃/14.jpg', text: '福袋（麻酱好好吃🤤）' },
@@ -206,7 +205,7 @@ const slides = [
   // ✨✨✨ Leon 的美食篇 ✨✨✨
   {
     type: 'gallery',
-    title: '食堂和廖大厨之间徘徊',
+    title: '“一人食”碎碎念',
     date: '2025.10 - 2025.11',
     backgroundType: 'image',
     backgroundImage: '/photos/ty/leon吃/7.jpg', 
@@ -235,15 +234,127 @@ const slides = [
       { img: '/photos/ty/leon吃/24.jpg', text: '鸡肉（实际蔬菜）卷' },
       { img: '/photos/ty/leon吃/25.jpg', text: '排骨😋' }
     ],
-    text: '有人说，分享欲是爱情的最高级。所以哪怕是一碗简单的面、一个路边的面包，我都想拍给你看。因为在这些琐碎的照片背后，藏着我没说出口的话：‘正在吃饭的这一刻，我又想你了。’ 谢谢你愿意接住我所有的碎碎念，让我在慕尼黑的每一餐都不觉得孤单。虽然我们无法同桌而食，但每一张照片发出的瞬间，我们都在陪对方度过一日三餐。是这些食物，连接了我们平行的生活，也连接了彼此想念的心。',
+    text: '有人说，分享欲是爱情的最高级。所以哪怕是一碗简单的面、一个路边的面包，我都想拍给你看。因为在这些琐碎的照片背后，藏着我没说出口的话：正在吃饭的这一刻，我又想你了。 谢谢你愿意接住我所有的碎碎念，让我在慕尼黑的每一餐都不觉得孤单。虽然我们无法同桌而食，但每一张照片发出的瞬间，我们都在陪对方度过一日三餐。是这些食物，连接了我们平行的生活，也连接了彼此想念的心。',
+  },
+
+    {
+    type: 'transition',
+    text: '一直到24号...'
+  },
+
+{
+    type: 'content', 
+    title: '跨越三年的“久别重逢”',
+    image: '/photos/视频/1024.PNG', 
+    date: '2025.10.24',
+    // 👇 文案重点：告别过去，开启未来
+    text: '从2022年10月到2025年10月。屏幕亮起的那一秒，是对这三年空白的正式告别，也是我们未来的第一行序言。\n\n看着镜头里那个熟悉又爱笑的你，我终于确信：过去的遗憾翻篇了，崭新的我们，开始了。',
+    backgroundType: 'image', 
+    backgroundImage: '/photos/视频/10242.JPG', 
+  },
+
+  // {
+  //   type: 'transition',
+  //   text: '然后，我们开始了......'
+  // },
+
+  // ✨✨✨ 新增：FaceTime 视频分批展示页 ✨✨✨
+  {
+    type: 'batch-gallery', 
+    // 👇 标题修改：强调连续性
+    title: '我们的FaceTime',
+    date: '2025.10.24 - 至今',
+    backgroundType: 'image',
+    backgroundImage: '/photos/1024.jpg', 
+    gallery: [
+      { img: '/photos/视频/1.5.png' }, { img: '/photos/视频/7.PNG' },
+      { img: '/photos/视频/8.PNG' }, { img: '/photos/视频/9.PNG' },
+      
+      { img: '/photos/视频/13.png' }, { img: '/photos/视频/12.png' },
+      { img: '/photos/视频/2.png' }, { img: '/photos/视频/1.png' },
+      
+      { img: '/photos/视频/10.PNG' }, { img: '/photos/视频/14.png' },
+      { img: '/photos/视频/15.PNG' }, { img: '/photos/视频/5.jpeg' }
+    ],
+    // 👇 正文修改：解释“停不下来”的含义，呼应前面的三年分别
+    text: '从10月24日至今天，一天未断。原来所谓的“忙得没时间”在思念面前都是伪命题。\n\n因为想你这件事无法暂停，所以无论多忙，见你都是我必须完成的日常。这份不断的记录，是我对你“永远有空”的承诺。' 
   },
 
   {
+    type: 'gallery',
+    title: '视频让我们更近地接触对方，相互袒露',
+    date: '2025.10 - 2025.11',
+    backgroundType: 'image',
+    backgroundImage: '/photos/1026/13.jpg', 
+    gallery: [
+      { img: '/photos/1026/1029.png' , text: '10.29 - “爱情比前途更难得”.“19岁无能为力的事太多，但对的人终将相遇”' },
+      { img: '/photos/1026/1112.png', text: ' “11.12 - 我爱你。” “我也爱你。” ' },
+      { img: '/photos/1026/11151.png', text: '11.15 - 隔着屏幕流泪的那一刻，以为这是脆弱'  },
+      { img: '/photos/1026/11152.png', text: '11.15 - 互相的长信告诉我们，这不是脆弱，这是我们心贴得最近的时候。' },
+    ],
+    text: '在15号那晚的眼泪擦干后，你教会了我关于爱最重要的一课。\n\n我不自信地问“是不是不合适”，你却坚定地告诉我：“情绪价值是可以被替代的，但一个有性格、有主见、鲜活的廖双祺，是无法替代的。”\n\n这句话，是我在慕尼黑收到过最好的礼物。它让我明白，爱不是扮演完美，而是两个真实的灵魂，相互认领。谢谢你，看见并拥抱了那个独一无二的我。从这一晚开始，我不再只想做那个只会逗你笑的Leon，因为我知道，你愿意接住我的泪水和抱怨。也就是从这一刻起，我觉得我们不再是“异地恋”，而是“在一起”。',
+  },
+
+  {
+    type: 'transition',
+    text: '与此同时...'
+  },
+
+{
+    type: 'gallery',
+    title: '跨越千里的书信',
+    date: '2025.10 - 2025.11',
+    backgroundType: 'image',
+    backgroundImage: '/photos/12.jpg', 
+    gallery: [
+      { img: '/photos/信/1.png' , text: '10月20号，寄出的第一封信《慕尼黑落叶的秋天》' },
+      { img: '/photos/信/2.jpeg', text: '"这个弹吉他的黄发美女最萌"' },
+      { img: '/photos/信/3.jpeg', text: '"命运是那5/6"'  },
+      { img: '/photos/信/4.jpeg', text: '出发' },
+      { img: '/photos/信/5.jpg', text: '到达'  },
+      { img: '/photos/信/6.png', text: '10月末，以为不会寄出的信' },
+      { img: '/photos/信/7.jpeg' },
+      { img: '/photos/信/8.png', text: '"我发现..."' },
+      { img: '/photos/信/9.jpeg', text: '对她的感情，是爱。'  },
+      { img: '/photos/信/11.jpg' , text: 'ty寄的第一封！'},
+      { img: '/photos/信/13.JPG', text: '11月15日收，开心' },
+      { img: '/photos/信/14.jpeg', text: '拼得好好！好可爱' },
+      { img: '/photos/信/15.jpeg', text: '爱你'  }
+    ],
+    text: '收到8000公里外寄来的信，真是一种神奇的感觉。8000公里的距离，光缆传输视频只需要0.1秒，但信件抵达却需要1个月。我们将日常交给了FaceTime，将内心珍藏的话交给了书信。\n\n这里有慕尼黑的落叶，有你亲手拼凑的可爱，还有我们在深夜里一笔一划写下的真心。这些信，可能就是我们在这个电子时代里，在这个异地恋的距离中，最笨拙也最真诚的浪漫证明。',
+  },
+
+    {
+    type: 'transition',
+    text: '就这样一步一步...又到了今天11月28号，你的生日🎂'
+  },
+
+{
     type: 'letter', 
     image: "/photos/信.jpg",
     title: '致我最爱的女孩 (From Leon in Munich)',
-    text: '亲爱的，生日快乐。\n\n从14岁到17岁，我们曾紧紧相依；中间走散的那两年，大概是命运为了让我们学会如何更好地相爱。还好，19岁的这年我们在9月27日又抓住了彼此。\n\n虽然刚重逢不久就要面对异地，我们很多时候一个人吃饭、一个人面对压力，我知道会有点辛苦。\n\n但请相信，我在 TUM 的每一次晚睡早起、攻克的每一个难关，都是为了填补那两年的空白，为了让我们未来的画卷不再有缺口。\n\n这是一个迟到了两年的生日礼物，请按下按钮，查收我的心意。',
-    buttonText: '点击领取生日礼物😁'
+    // 👇 扩展后的长信内容
+    text: `亲爱的Ty，生日快乐。
+
+            从14岁那年的初遇，到19岁这年的重逢。中间走散的那两年，大概是命运为了让我们学会如何更好地去爱，才特意留出的空白。
+
+            回看这短短两个月，命运的算法真的太奇妙了。
+            如果那天我没有买那个面包机，如果那晚我没有发高烧，如果10月24日那个视频通话没有接通……我们依然是两条平行的线。但幸运的是，在无数个可能错过的分岔路口，我们都坚定地走向了对方。
+
+            谢谢你，Ty。
+            谢谢你在我试图用“别回我”来逃避时，用一句“晚点回你”接住了我；
+            谢谢你在我面对慕尼黑的满地狼藉、觉得自己糟糕透顶时，告诉我“真实的Leon无法替代”；
+            谢谢你愿意陪我吃每一顿“云晚餐”，谢谢你把生活的琐碎拼成可爱的拼豆，寄到我身边。
+
+            在这个光缆传输只需要0.1秒、书信抵达却需要30天的世界里，我想要给你最老派也最长情的爱。
+            虽然此刻慕尼黑是冬天，但只要想到你，我这里就是永远的晴天。
+
+            19岁这年，能把你“切”回我的生命里，是我最大的幸运。
+            愿今后的每一个生日，无论相隔多远，我都能陪在你身边。
+            做你自己，快乐自由。
+
+          爱你。`,
+    buttonText: '点我，点我🐶'
   }
 ]
 
@@ -263,7 +374,7 @@ const currentSlide = computed(() => slides[currentIndex.value])
 // 修改：允许 Content 和 Gallery 都能处理分句逻辑
 const currentSlideSentences = computed(() => {
   const slide = currentSlide.value
-  if ((slide.type !== 'content' && slide.type !== 'gallery') || !slide.text) return []
+  if ((slide.type !== 'content' && slide.type !== 'gallery' && slide.type !== 'batch-gallery') || !slide.text) return []
   return slide.text.replace(/。/g, '。|').split('|').map(s => s.trim()).filter(s => s)
 })
 
@@ -278,14 +389,25 @@ const visibleSentences = computed(() => {
     return currentSlideSentences.value.slice(0, textStep)
   }
 
-  // 2. 第6页(Index 5)特殊逻辑：步数减去图片数量
+  // 🔴 新增 2. Batch Gallery 模式逻辑
+  if (slide.type === 'batch-gallery') {
+    const batchSize = 4
+    const batchCount = Math.ceil((slide.gallery?.length || 0) / batchSize)
+    // 逻辑：总步数 = 1(空白起始) + 批次数量 + 文字数量
+    // 文字显示的步数 = 当前步数 - (1 + 批次数量)
+    // 举例：若有3批图。Step 1:空白; Step 2:第1批; Step 3:第2批; Step 4:第3批; Step 5:第1句文字
+    const textStep = Math.max(0, contentStep.value - (1 + batchCount))
+    return currentSlideSentences.value.slice(0, textStep)
+  }
+
+  // 3. 第6页(Index 5)特殊逻辑：步数减去图片数量
   if (currentIndex.value === 5 && slide.images) {
     const imageCount = slide.images.length
     const textStep = Math.max(0, contentStep.value - imageCount)
     return currentSlideSentences.value.slice(0, textStep)
   }
   
-  // 3. 普通 Content 逻辑
+  // 4. 普通 Content 逻辑
   return currentSlideSentences.value.slice(0, contentStep.value)
 })
 
@@ -340,30 +462,35 @@ const nextSlide = () => {
       .catch((e) => console.log('等待交互播放', e))
   }
 
-  // ⭐⭐⭐ 自动滚动与分步逻辑 (兼容 Content 和 Gallery) ⭐⭐⭐
+  // ⭐⭐⭐ 自动滚动与分步逻辑 (兼容 Content, Gallery, Batch-Gallery) ⭐⭐⭐
   const isContent = currentSlide.value.type === 'content'
   const isGallery = currentSlide.value.type === 'gallery'
+  const isBatchGallery = currentSlide.value.type === 'batch-gallery'
 
-  if (isContent || isGallery) {
+  if (isContent || isGallery || isBatchGallery) {
     let totalSteps = 0
 
-    if (isGallery) {
+    if (isBatchGallery) {
+       // 🟢 修正逻辑：总步数 = 1(初始空白) + 批次数 + 文本句数
+       const batchSize = 4
+       const batchCount = Math.ceil((currentSlide.value.gallery?.length || 0) / batchSize)
+       totalSteps = 1 + batchCount + currentSlideSentences.value.length
+    } else if (isGallery) {
       // Gallery页：总步数 = 照片数 + 句子数
       totalSteps = (currentSlide.value.gallery?.length || 0) + currentSlideSentences.value.length
     } else {
-      // 第6页(Index 5)：总步数 = 照片数 + 句子数
+      // Content页：总步数 = 照片数 + 句子数
       if (currentIndex.value === 5 && currentSlide.value.images) {
         totalSteps = currentSlide.value.images.length + currentSlideSentences.value.length
       } else {
-        // 其他Content页：总步数 = 句子数
         totalSteps = currentSlideSentences.value.length
       }
     }
 
+    // 只要步数还没走完，点击就是 +1 步，而不翻页
     if (contentStep.value < totalSteps) {
       contentStep.value++
       
-      // 使用 nextTick + 延时，确保手机端能滚到底
       nextTick(() => {
         setTimeout(() => {
           const container = document.querySelector('.mode-mobile .content-main') || document.querySelector('.gallery-container')
@@ -376,7 +503,7 @@ const nextSlide = () => {
         }, 100) 
       })
 
-      return // 步数没走完，不翻页
+      return 
     }
   }
 
@@ -427,7 +554,6 @@ const preloadImages = async () => {
     if (slide.images && slide.images.length > 0) {
       imageUrls.push(...slide.images)
     }
-    // 预加载 gallery 里的图
     if (slide.gallery && slide.gallery.length > 0) {
       slide.gallery.forEach(item => imageUrls.push(item.img))
     }
@@ -582,23 +708,59 @@ onMounted(() => {
             <h3 class="gallery-title">{{ currentSlide.title }}</h3>
             
             <div class="gallery-grid">
-              <div 
-                v-for="(item, index) in currentSlide.gallery" 
-                :key="index" 
-                class="gallery-item"
-                v-show="index < contentStep"
-              >
-                <div class="polaroid-mini-card">
-                  <img :src="item.img" loading="lazy" />
+              <Transition name="gallery-pop" v-for="(item, index) in currentSlide.gallery" :key="index">
+                <div 
+                  class="gallery-item"
+                  v-show="index < contentStep"
+                >
+                  <div class="polaroid-mini-card">
+                    <img :src="item.img" loading="lazy" />
+                  </div>
+                  <p class="gallery-text">{{ item.text }}</p>
                 </div>
-                <p class="gallery-text">{{ item.text }}</p>
-              </div>
+              </Transition>
             </div>
             
             <div class="gallery-text-area" v-if="currentSlide.text">
               <p 
                 v-for="(sentence, index) in visibleSentences" 
                 :key="index"
+                class="sentence-item gallery-sentence"
+              >
+                {{ sentence }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div 
+          v-else-if="currentSlide.type === 'batch-gallery'" 
+          class="slide-section content gallery-mode" 
+          :key="currentIndex"
+          :style="{ backgroundImage: `url(${currentSlide.backgroundImage})` }"
+        >
+          <div class="background-overlay"></div>
+          
+          <div class="content-main gallery-container">
+            <h3 class="gallery-title">{{ currentSlide.title }}</h3>
+            
+            <div class="gallery-grid batch-grid">
+              <Transition name="gallery-pop" v-for="(item, index) in currentSlide.gallery" :key="index">
+                <div 
+                  class="gallery-item"
+                  v-show="index < (contentStep - 1) * 4" 
+                >
+                  <div class="polaroid-mini-card">
+                    <img :src="item.img" loading="lazy" />
+                  </div>
+                </div>
+              </Transition>
+            </div>
+            
+            <div class="gallery-text-area" v-if="currentSlide.text">
+              <p 
+                v-for="(sentence, index) in visibleSentences" 
+                :key="index" 
                 class="sentence-item gallery-sentence"
               >
                 {{ sentence }}
@@ -673,94 +835,77 @@ body, html {
 
 /* --- 设备适配逻辑 (iPad 11寸优化版) --- */
 
-/* 1. 平板默认（横屏 Landscape） */
 .app-container.mode-tablet .content-main {
-  transform: scale(0.85); /* 🔴 修改：从 0.92 调小到 0.85，让画面更精致，不撑满屏幕 */
-  width: 85%;            /* 🔴 修改：宽度收窄，增加留白 */
-  max-width: 900px;      /* 🔴 修改：限制最大宽度 */
+  transform: scale(0.85);
+  width: 85%;
+  max-width: 900px;
 }
 
-/* 2. 平板竖屏优化 (Portrait) - 当Ty竖着拿iPad时 */
 @media screen and (orientation: portrait) {
   .app-container.mode-tablet .content-main {
-    flex-direction: column !important; /* 强制改为上下布局 */
+    flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    transform: none !important; /* 取消缩放，使用自然宽度 */
-    width: 85% !important;     /* 🔴 修改：稍微收窄一点 */
+    transform: none !important;
+    width: 85% !important;
     height: auto !important;
-    max-height: 85vh; /* 留出上下边距，防止贴边 */
-    overflow-y: auto !important; /* 内容多时允许上下滑动 */
-    padding: 30px 20px !important; /* 🔴 修改：内边距稍微减小 */
+    max-height: 85vh;
+    overflow-y: auto !important;
+    padding: 30px 20px !important;
     gap: 25px;
   }
-
-  /* 图片样式调整 */
   .app-container.mode-tablet .polaroid {
     margin: 0 !important;
-    width: 280px !important; /* 🔴 修改：从 340px 缩小到 280px，防止图片太大 */
+    width: 280px !important;
     transform: rotate(-2deg) !important;
     flex-shrink: 0;
   }
-
-  /* 第6页的多图拼贴调整 */
   .app-container.mode-tablet .photo-collage {
     margin: 0 !important;
-    transform: scale(0.75) !important; /* 🔴 修改：拼贴画也对应缩小 */
+    transform: scale(0.75) !important;
     flex-shrink: 0;
   }
-
-  /* 文字区域调整 */
   .app-container.mode-tablet .text-area {
     width: 100% !important;
-    text-align: center !important; /* 文字居中，更有海报感 */
+    text-align: center !important;
     padding-left: 0 !important;
   }
-
   .app-container.mode-tablet .slide-title {
     text-align: center !important;
-    font-size: 1.4rem !important; /* 🔴 修改：字号微调 */
+    font-size: 1.4rem !important;
   }
-
   .app-container.mode-tablet .text-area p.sentence-item {
     text-align: center !important;
-    font-size: 1.15rem !important; /* 🔴 修改：正文不宜过大 */
+    font-size: 1.15rem !important;
   }
-  
-  /* 修复画廊在竖屏平板的显示 */
   .app-container.mode-tablet .gallery-grid {
     gap: 20px;
   }
 }
 
-/* Mobile (Phone) - 针对 iPhone 6.3寸 (Pro) 优化 */
+/* Mobile */
 .app-container.mode-mobile .content-main {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: flex-start !important;
-  /* 👇 宽度调整：90vw 保证左右留白，max-width 放大到 430px 适配大屏手机 */
   width: 90vw !important; 
   max-width: 430px !important;
   height: auto;
-  max-height: 85vh; /* 给底部留一点空间 */
-  /* 👇 顶部增加 padding，适配灵动岛区域 */
+  max-height: 85vh;
   padding: 50px 20px 120px 20px !important;
   margin: 20px auto !important; 
   left: auto !important;
   right: auto !important;
   transform: none !important;
-  gap: 25px; /* 增加间距，显得不拥挤 */
+  gap: 25px;
   overflow-y: auto !important; 
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box !important;
 }
-
-/* 拍立得照片容器 */
 .app-container.mode-mobile .polaroid {
   margin: 0 !important; 
-  /* 👇 照片宽度加宽，视觉冲击力更强 */
   width: 240px !important; 
   padding: 12px 12px 40px 12px !important;
   align-self: center !important;
@@ -770,84 +915,69 @@ body, html {
   top: auto !important;
   flex-shrink: 0 !important;
 }
-
-/* 第6页的多图拼贴 */
 .app-container.mode-mobile .photo-collage {
   margin: 0 !important;
   width: 280px !important;
   height: 250px !important;
   align-self: center !important;
   transform-origin: center center !important;
-  transform: scale(1) !important; /* 6.3寸屏幕不需要缩放太多 */
+  transform: scale(1) !important;
   position: relative !important;
   left: auto !important;
   top: auto !important;
   flex-shrink: 0 !important;
 }
-
-.app-container.mode-mobile .collage-1, 
-.app-container.mode-mobile .collage-2, 
-.app-container.mode-mobile .collage-3, 
-.app-container.mode-mobile .collage-4 {
-  width: 130px !important; /* 拼贴小图也稍微放大 */
+.app-container.mode-mobile .collage-1, .app-container.mode-mobile .collage-2, .app-container.mode-mobile .collage-3, .app-container.mode-mobile .collage-4 {
+  width: 130px !important; 
 }
 .app-container.mode-mobile .collage-1 { left: 0px !important; top: 0 !important; }
 .app-container.mode-mobile .collage-2 { right: 0px !important; top: 15px !important; }
 .app-container.mode-mobile .collage-3 { left: 10px !important; bottom: 15px !important; }
 .app-container.mode-mobile .collage-4 { right: 10px !important; bottom: 0 !important; }
-
-/* 文字区域 */
 .app-container.mode-mobile .text-area {
   width: 100% !important;
   text-align: center !important;
   padding: 0 !important; 
   margin: 0 !important;
 }
-
 .app-container.mode-mobile .slide-title {
-  font-size: 1.4rem !important; /* 标题加大 */
+  font-size: 1.4rem !important;
   margin: 10px 0 15px 0 !important;
   text-align: center !important;
   display: block !important;
   width: 100% !important;
 }
-
 .app-container.mode-mobile .date-tag {
   font-size: 0.9rem !important;
   padding: 5px 16px !important;
   margin: 0 auto 20px auto !important;
   display: inline-block !important;
 }
-
 .app-container.mode-mobile .text-area p.sentence-item {
-  font-size: 1.15rem !important; /* 正文加大，阅读更舒适 */
+  font-size: 1.15rem !important;
   line-height: 1.8 !important;
   margin: 8px 0 !important;
   text-align: center !important;
 }
-
-/* 手机端画廊适配 */
 .mode-mobile .gallery-item {
   width: 100% !important; 
-  flex-direction: row; /* 保持左右排版：左图右文 */
+  flex-direction: row; 
   align-items: center;
   gap: 15px;
   margin-bottom: 15px;
-  background: rgba(255,255,255,0.4); /* 加一点点背景让文字更清楚 */
+  background: rgba(255,255,255,0.4);
   padding: 10px;
   border-radius: 12px;
 }
-
 .mode-mobile .polaroid-mini-card {
-  width: 130px; /* 画廊小图放大 */
+  width: 130px; 
   flex-shrink: 0;
   transform: rotate(-2deg) !important;
 }
-
 .mode-mobile .gallery-text {
   flex-grow: 1;
   text-align: left;
-  font-size: 1.1rem; /* 画廊文字加大 */
+  font-size: 1.1rem; 
   background: none;
   box-shadow: none;
   padding: 0;
@@ -855,44 +985,47 @@ body, html {
   line-height: 1.4;
 }
 
-.app-container.mode-mobile .collage-1, 
-.app-container.mode-mobile .collage-2, 
-.app-container.mode-mobile .collage-3, 
-.app-container.mode-mobile .collage-4 {
-  width: 120px !important; 
-}
-.app-container.mode-mobile .collage-1 { left: 10px !important; top: 0 !important; }
-.app-container.mode-mobile .collage-2 { right: 10px !important; top: 10px !important; }
-.app-container.mode-mobile .collage-3 { left: 20px !important; bottom: 10px !important; }
-.app-container.mode-mobile .collage-4 { right: 20px !important; bottom: 0 !important; }
+/* --- 🔴 修改后：Batch Gallery 专用 (强制一行4个) --- */
 
-.app-container.mode-mobile .text-area {
-  width: 100% !important;
-  text-align: center !important;
-  padding: 0 !important; 
-  margin: 0 !important;
+/* 1. 容器设置：允许换行，居中 */
+.mode-mobile .gallery-grid.batch-grid {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important; /* 居中对齐 */
+  align-content: flex-start !important;
+  gap: 6px !important; /* 间距调小，因为照片变多了 */
+  padding: 0 5px !important; /* 左右留一点点边距 */
 }
 
-.app-container.mode-mobile .slide-title {
-  font-size: 1.25rem !important;
-  margin: 5px 0 10px 0 !important;
-  text-align: center !important;
-  display: block !important;
-  width: 100% !important;
+/* 2. 单个照片项：强制宽度为 23% (4个就是 92%，加上间距刚好一行) */
+.mode-mobile .batch-grid .gallery-item {
+  width: 22% !important; /* 🔴 关键修改：从 45% 改为 22%，实现一行4个 */
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important; /* 去掉外层内边距 */
+  background: none !important;
+  margin-bottom: 5px !important;
+  /* ✨✨✨ 这里删除了原本写死的 animation: pop-in ... 以免冲突 */
 }
 
-.app-container.mode-mobile .date-tag {
-  font-size: 0.85rem !important;
-  padding: 4px 14px !important;
-  margin: 0 auto 15px auto !important;
-  display: inline-block !important;
+/* 3. 拍立得卡片内部微调：让图片撑满，白边减小 */
+.mode-mobile .batch-grid .polaroid-mini-card {
+  width: 100% !important; 
+  padding: 3px 3px 12px 3px !important; /* 🔴 白边改薄，留出更多空间给照片 */
+  transform: rotate(0deg) !important; /* 整齐排列，不歪斜 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
 }
 
-.app-container.mode-mobile .text-area p.sentence-item {
-  font-size: 1rem !important;
-  line-height: 1.7 !important;
-  margin: 6px 0 !important;
-  text-align: center !important;
+/* 4. 图片本身高度自适应 */
+.mode-mobile .batch-grid .polaroid-mini-card img {
+  height: 65px !important; /* 🔴 限制高度，保证正方形或整齐的比例 */
+  object-fit: cover !important;
+}
+
+/* 平板/电脑端也同步调整一下，保证电脑上也是一行4个或更多，不会太松散 */
+.batch-grid .gallery-item {
+  width: 180px; /* 电脑端保持原状或微调即可 */
 }
 
 /* --- 设备选择遮罩样式 --- */
@@ -1023,13 +1156,26 @@ body, html {
   flex-direction: column;
   align-items: center;
   width: 200px; 
+  /* ✨✨✨ 修改点：移除了原本写死的 opacity:0 和 animation: pop-in ... */
+  /* 让它默认可见，只有在 Transition 触发时才跑动画 */
+}
+
+/* ✨✨✨ 新增：Transition 动画类 ✨✨✨ */
+/* 当 v-show 变为 true 时，Vue 会自动添加这个类 */
+.gallery-pop-enter-active {
+  animation: pop-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.gallery-pop-leave-active {
+  transition: opacity 0.3s;
+}
+.gallery-pop-enter-from, .gallery-pop-leave-to {
   opacity: 0;
-  transform: translateY(20px);
-  animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform: translateY(30px);
 }
 
 @keyframes pop-in {
-  to { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; transform: translateY(40px) scale(0.8); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* 迷你拍立得效果 */
