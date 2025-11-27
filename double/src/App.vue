@@ -16,7 +16,7 @@ const slides = [
   {
     type: 'cover', 
     image: '/photos/cover.jpg', 
-    printText: '2025.9.27 - 2025.11.28\n这是一段属于我们，短而有幸的时光。', 
+    printText: '2025.9.27 - 2025.11.28\n这是一段属于我们，短而有幸的开篇。', 
   },
   {
     type: 'content', 
@@ -76,7 +76,7 @@ const slides = [
     gallery: [
       { img: '/photos/记录/1010/1.jpg', text: '早起看见忘给小孩改作业的你' },
       { img: '/photos/记录/1010/2.jpg', text: '接着就是早上还没下班的月亮(然后我就去市政厅办事了😣)' },
-      { img: '/photos/记录/1010/m.JPG', text: '好可爱的寻猫启示。我也喜欢猫🐱' },
+      { img: '/photos/记录/1010/m.JPG', text: '好可爱的寻猫启事。我也喜欢猫🐱' },
       { img: '/photos/记录/1010/4.jpg', text: '刚给你看完欧洲超市的可颂就自己没忍住买一个吃🥐' },
       { img: '/photos/记录/1010/66.jpg', text: '你也在逛超市。聊完咖啡我决定给你买点咖啡粉试试☕️' },
       { img: '/photos/记录/1010/6.jpg', text: '国内油油的面包（除了山姆！）' },
@@ -96,16 +96,16 @@ const slides = [
     backgroundImage: '/photos/记录/back1.jpeg', 
     gallery: [
       { img: '/photos/记录/12.png', text: '被剪发哥剪出一个秃顶的我' },
-      { img: '/photos/记录/13.JPG', text: '😋早上煮出了溏心蛋🥚' },
+      { img: '/photos/记录/13.JPG', text: '早上煮出了溏心蛋🥚' },
       { img: '/photos/记录/14.png', text: '来自中国的锁' },
-      { img: '/photos/记录/15.JPG', text: '弯弯的房东送我的辣椒酱拉🌶️' },
+      { img: '/photos/记录/15.JPG', text: '房东送我的辣椒酱🌶️' },
       { img: '/photos/记录/8.jpeg', text: '健康的辣椒炒鸡腿肉🍗' },
       { img: '/photos/记录/back.JPG', text: '临近秋天学校里好漂亮的秋景🍂' },
       { img: '/photos/记录/4.jpeg', text: '小花园里的野猫，黑黑的🐈‍⬛' },
       { img: '/photos/记录/2.jpeg', text: '好久没吃月饼🥮了😭' },
       { img: '/photos/记录/3.jpeg', text: '公园吃cheese cake和寿司(后面被蜜蜂🐝追着跑)' },
       { img: '/photos/记录/16.JPG', text: '准备辣椒炒肉中（腊肉怎么是红红的）' },
-      { img: '/photos/ty/18.jpg', text: '帮我也把把脉' },
+      { img: '/photos/记录/18.JPG', text: '准备抽血💉😣' },
       { img: '/photos/记录/25.jpeg', text: '咖啡哥带我在市中心喝☕️（又是被咖啡哥洗礼的一天）' },
       { img: '/photos/记录/28.jpeg', text: '好漂亮的公园⛲️（ipad壁纸）' },
       { img: '/photos/记录/26.JPG', text: '用同一个杯子的同一级的计算机土耳其老哥' },
@@ -171,7 +171,7 @@ const slides = [
     backgroundImage: '/photos/ty/77.png', 
     gallery: [
       { img: '/photos/ty/ty吃/55.jpg', text: '红豆面包🫘' },
-      { img: '/photos/ty/ty吃/66.jpg', text: '恰巴塔' },
+      { img: '/photos/ty/ty吃/66.jpg', text: '吃商展示' },
       { img: '/photos/ty/ty吃/7.jpg', text: '低卡牛肉干' },
       { img: '/photos/ty/ty吃/37.jpg', text: '葡萄雪糕（满满蛋白质）' },
       { img: '/photos/ty/ty吃/778.jpg', text: '杂粮饭+鸡胸肉' },
@@ -196,7 +196,7 @@ const slides = [
       { img: '/photos/ty/ty吃/77.jpg', text: '华夫饼🧇' },
       { img: '/photos/ty/ty吃/87.jpg', text: '🍽️' },
       { img: '/photos/ty/ty吃/89.jpg', text: '有一个面包好像不是很好吃哦' },
-      { img: '/photos/ty/ty吃/2.jpg', text: '妈妈做得猪蹄😋' },
+      { img: '/photos/ty/ty吃/2.jpg', text: '妈妈做的猪蹄😋' },
       { img: '/photos/ty/ty吃/1.jpg', text: '自烤恰巴塔' }
     ],
     text: '',
@@ -267,8 +267,8 @@ const slides = [
     backgroundType: 'image',
     backgroundImage: '/photos/1024.jpg', 
     gallery: [
-      { img: '/photos/视频/1.5.png' }, { img: '/photos/视频/7.PNG' },
-      { img: '/photos/视频/8.PNG' }, { img: '/photos/视频/9.PNG' },
+      { img: '/photos/视频/1.5.png' ,text:'吃火锅的你' }, { img: '/photos/视频/7.png' ,text:'眼睛起雾了' },
+      { img: '/photos/视频/8.PNG' }, { img: '/photos/视频/9.png' },
       
       { img: '/photos/视频/13.png' }, { img: '/photos/视频/12.png' },
       { img: '/photos/视频/2.png' }, { img: '/photos/视频/1.png' },
@@ -835,14 +835,22 @@ body, html {
   padding: 0;
   height: 100%;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-  background-color: var(--bg-color);
+  background-color: #fcebeb; /* 统一底色防止回弹露白 */
   overflow: hidden; 
+  overscroll-behavior: none; /* 🔴 关键修改：禁止iOS橡皮筋回弹效果 */
 }
 
 .app-container {
   width: 100vw;
-  height: 100vh;
-  position: relative;
+  /* 👇 核心修复：针对 iPad/iOS 使用 dvh 单位，并强制固定位置 */
+  height: 100vh; /* Fallback */
+  height: 100dvh; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  bottom: 0; 
+  right: 0;
+  
   display: flex;
   justify-content: center;
   align-items: center;
