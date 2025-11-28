@@ -1336,6 +1336,7 @@ body, html {
   font-size: 1.5rem;
 }
 
+
 /* --- 修复 Batch Gallery 文字显示 --- */
 
 /* 电脑/平板端：文字稍微小一点 */
