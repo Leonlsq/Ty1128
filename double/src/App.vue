@@ -239,6 +239,7 @@ const slides = [
     ],
     text: '有人说，分享欲是爱情的最高级。所以哪怕是一碗简单的面、一个路边的面包，我都想拍给你看。因为在这些琐碎的照片背后，藏着我没说出口的话：正在吃饭的这一刻，我又想你了。 谢谢你愿意接住我所有的碎碎念，让我在慕尼黑的每一餐都不觉得孤单。虽然我们无法同桌而食，但每一张照片发出的瞬间，我们都在陪对方度过一日三餐。是这些食物，连接了我们平行的生活，也连接了彼此想念的心。',
   },
+  
 
     {
     type: 'transition',
@@ -297,7 +298,7 @@ const slides = [
     ],
     text: '在15号那晚的眼泪擦干后，你教会了我关于爱最重要的一课。\n\n我不自信地问“是不是不合适”，你却坚定地告诉我：“情绪价值是可以被替代的，但一个有性格、有主见、鲜活的廖双祺，是无法替代的。”\n\n这句话，是我在慕尼黑收到过最好的礼物。它让我明白，爱不是扮演完美，而是两个真实的灵魂，相互认领。谢谢你，看见并拥抱了那个独一无二的我。从这一晚开始，我不再只想做那个只会逗你笑的Leon，因为我知道，你愿意接住我的泪水和抱怨。也就是从这一刻起，我觉得我们不再是“异地恋”，而是“在一起”。',
   },
-
+  防Gank这块，反侦察嘻嘻
   {
     type: 'transition',
     text: '与此同时...'
@@ -549,7 +550,8 @@ const nextSlide = (isFromButton: boolean | Event = false) => {
 
 // --- 设备选择 ---
 const selectDevice = (mode: string) => {
-  // ⭐⭐⭐ 修改点：iPad或手机模式点击时，尝试触发全屏 ⭐⭐⭐
+  // ⭐⭐⭐ 修改点：iPad或电脑模式点击时，尝试触发全屏 ⭐⭐⭐
+  // 统一都使用 tablet 模式，这样电脑也会应用 iPad 的 CSS (scale 0.85)
   if (mode === 'tablet' || mode === 'mobile') {
     triggerFullScreen()
   }
@@ -630,9 +632,8 @@ onMounted(() => {
           <h2>亲爱的Ty你是在用哪个设备打开我们的网站的吖😊</h2>
           <p>✨选择你的设备✨</p>
           <div class="btn-group">
-            <button @click.stop="selectDevice('mobile')">📱 手机 iPhone</button>
-            <button @click.stop="selectDevice('tablet')">📟 平板 iPad</button>
-            <button @click.stop="selectDevice('desktop')">💻 电脑 Mac/PC(体验最佳)</button>
+            <button @click.stop="selectDevice('mobile')">📱 手机 (iPhone / Android)</button>
+            <button @click.stop="selectDevice('tablet')">💻/📟 电脑 或 平板 (PC / iPad)</button>
           </div>
         </div>
       </div>
@@ -863,7 +864,7 @@ body, html {
 }
 
 /* --- 设备适配逻辑 (iPad 11寸优化版) --- */
-
+/* 👇 现在电脑也使用这个 mode-tablet 样式，从而保持 85% 缩放 */
 .app-container.mode-tablet .content-main {
   transform: scale(0.85);
   width: 85%;
